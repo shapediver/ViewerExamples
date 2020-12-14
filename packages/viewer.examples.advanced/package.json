@@ -45,8 +45,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@shapediver/viewer.session-engine.session-engine": "^0.0.1",
-    "reflect-metadata": "^0.1.13",
-    "tsyringe": "^4.4.0"
+    "reflect-metadata": "^0.1.13"
   }
 }
