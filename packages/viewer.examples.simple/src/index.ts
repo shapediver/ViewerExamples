@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import * as api from "@shapediver/viewer"
+import { api } from "@shapediver/viewer"
 import { RendererType } from "@shapediver/viewer";
 
 const modelViewUrl = 'https://sdeuc1.eu-central-1.shapediver.com';
