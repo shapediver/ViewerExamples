@@ -1,24 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "removeComments": true,
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        "outDir": "./dist/",
+        "module": "es6",
         "target": "es5",
-        "strict": true,
-        "rootDir": "src",
-        "outDir": "dist"
-    },
-    "include": [
-        "./**/*.ts"
-    ],
-    "exclude": [
-        "__tests__/**/*",
-        "node_modules/**/*",
-        "dist",
-        "dist-dev",
-        "dist-prod"
-    ]
+        "moduleResolution": "node",
+    }
 }
