@@ -4,15 +4,16 @@
     {
       "name": "Install Dependencies",
       "command": "npm install"
-    },
-    {
-      "name": "Run",
-      "command": "npm run start"
     }
   ],
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
+    "start": {
+      "name": "test",
+      "command": "npm run start",
+      "runAtStart": true
+    },
     "test": {
       "name": "test",
       "command": "npm run test",
