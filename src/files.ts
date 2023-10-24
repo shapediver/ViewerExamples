@@ -1,0 +1,1 @@
+export const files = ["examples/A/A_1/index.html","examples/A/A_2/index.html","examples/B/B_1/index.html","examples/B/B_2/index.html"];

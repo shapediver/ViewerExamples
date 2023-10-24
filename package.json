@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node ./src/searchForExampleFiles.ts && parcel build index.html 'examples/**/*.html' --log-level error && parcel index.html --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@shapediver/viewer": "2.11.0",
-    "parcel-bundler": "^1.6.1"
+    "parcel-bundler": "^1.6.1",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "typescript": "4.7.3"
