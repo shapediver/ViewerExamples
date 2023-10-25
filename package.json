@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "ts-node ./src/searchForExampleFiles.ts && parcel index.html 'examples/**/*.html' --open",
+    "start": "ts-node ./src/searchForExampleFiles.ts && parcel build index.html 'examples/**/*.html'",
+    "serve": "ts-node ./src/searchForExampleFiles.ts && parcel index.html 'examples/**/*.html' --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
