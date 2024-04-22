@@ -1,16 +1,17 @@
 {
     "compilerOptions": {
-        "strict": true,
         "module": "commonjs",
-        "jsx": "preserve",
+        "removeComments": false,
         "esModuleInterop": true,
-        "sourceMap": true,
-        "allowJs": true,
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "rootDir": "src",
+        "sourceMap": false,
+        "declaration": false,
+        "declarationMap": false,
+        "target": "ES6",
+        "strict": true,
+        "outDir": "dist",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "moduleResolution": "node"
-    }
+    },
+    "exclude": ["node_modules", "dist"]           /* Specify files to exclude from compilation */
 }
