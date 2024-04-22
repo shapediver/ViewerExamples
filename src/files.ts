@@ -1,1 +1,1 @@
-export const files: string[] = [];
+export const files = ["examples/interactions/dragging/advanced/example.html","examples/interactions/dragging/simple/example.html","examples/interactions/hovering/advanced/example.html","examples/interactions/hovering/simple/example.html","examples/session/advanced/example.html","examples/session/other-example/example.html","examples/session/simple/example.html","examples/viewport/advanced/example.html","examples/viewport/simple/example.html"];
