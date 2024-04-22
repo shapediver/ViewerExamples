@@ -29,6 +29,16 @@ for(let i = 0; i < files.length; i++) {
 }
 
 const ul = document.createElement('ul');
+
+files.forEach(file => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = file.replace('/example.html', '');
+    a.href = file;
+    li.appendChild(a);
+    ul.appendChild(li);
+});
+
 document.body.appendChild(ul);
 
 const createList = (parent: HTMLElement, folder: FolderStructure, depth = 0) => {
