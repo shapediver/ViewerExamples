@@ -1,4 +1,5 @@
 import { files } from './files';
+import marked from 'marked';
 
 type FileData = {
     folders: string[],
@@ -42,6 +43,26 @@ for(let i = 0; i < files.length; i++) {
 }
 
 const div = document.getElementById('main') as HTMLDivElement;
+
+// load data from markdown file
+const markdown = 
+`
+# ShapeDiver Viewer Examples
+
+This is a collection of examples for the ShapeDiver Viewer.<br/>
+In each example you have a home button to return back to this page, a button that opens the GitHub page with the code for the example and a button that opens the example in a new CodeSandbox.
+
+If you are searching for the Viewer API documentation, please visit the [ShapeDiver API Documentation](https://help.shapediver.com/doc/viewer).<br/>
+If you have any questions or need help with the viewer, please visit the [ShapeDiver Forum](https://forum.shapediver.com/).
+
+If you find errors or have suggestions for improvements, please let us know!
+`;
+
+// create the markdown element
+const markdownElement = document.createElement('div');
+markdownElement.innerHTML = marked.parse(markdown).toString();
+markdownElement.style.fontSize = 'large';
+div.appendChild(markdownElement);
 
 // create the initial list
 const ul = document.createElement('ul');

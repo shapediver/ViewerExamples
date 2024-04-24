@@ -13,15 +13,24 @@
             padding-bottom: 0.5rem;
         }
 
+        ul>li:not(ul ul li) {
+            list-style: none;
+            font-weight: bold;
+        }
+
+        ul:not(ul ul) {
+            padding-inline-start: 0px;
+        }
+
+
         #main {
-            margin: 5rem;
+            padding: 5rem;
         }
     </style>
 </head>
 
 <body>
     <div id="main">
-        <h1>ShapeDiver Viewer Examples</h1>
     </div>
     <script src="src/index.ts"></script>
 </body>
