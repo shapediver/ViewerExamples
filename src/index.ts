@@ -4,7 +4,9 @@ import marked from 'marked';
 type FileData = {
     folders: string[],
     name: string,
-    href: string
+    href: string,
+    codeSandBox: string,
+    github: string
 };
 
 type FolderStructure = {
@@ -16,12 +18,14 @@ let folderStructure: FolderStructure = {};
 // Create the folder structure
 for(let i = 0; i < files.length; i++) {
     // Split the file path into parts
-    const parts = files[i].split("/");
+    const parts = files[i].href.split("/");
 
     // Create the file data
     const fileData = {
         name: parts[parts.length - 2],
-        href: files[i],
+        href: files[i].href,
+        codeSandBox: files[i].codeSandBoxUrl,
+        github: files[i].githubUrl,
         folders: parts.slice(1, parts.length - 2)
     };
 
@@ -80,10 +84,32 @@ const createList = (parent: HTMLElement, folder: FolderStructure) => {
         if(folder[f].href !== undefined) {
             // if the folder has a href it is a file
             const li = document.createElement("li");
+
+            const div = document.createElement('div');
+            div.className = 'button-container';
+
+            // create a link to the file
             const a = document.createElement("a");
             a.textContent = (folder[f].name as string).replace(/-/g, ' ');
             a.href = folder[f].href as string;
-            li.appendChild(a);
+            div.appendChild(a);
+
+            // create an icon for the code sandbox link
+            const codeSandBoxSpan = document.createElement("span");
+            codeSandBoxSpan.id = 'home-button';
+            codeSandBoxSpan.className = "material-symbols-outlined button";
+            codeSandBoxSpan.textContent = 'deployed_code';
+            div.appendChild(codeSandBoxSpan);
+
+            // create an icon for the github link
+            const gitHubSpan = document.createElement("span");
+            gitHubSpan.id = 'home-button';
+            gitHubSpan.className = "material-symbols-outlined button";
+            gitHubSpan.innerHTML = 'code';
+            div.appendChild(gitHubSpan);
+
+            li.appendChild(div);
+
             parent.appendChild(li);
         } else {
             // if the folder does not have a href it is a folder

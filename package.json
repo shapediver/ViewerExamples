@@ -6,12 +6,12 @@
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
   "scripts": {
-    "start": "npm run tsc-check && npm run search && npm run parcel-build-local && npm run copy-readme && npm run add-html && npm run parcel-open",
+    "start": "npm run tsc-check && npm run before-build && npm run parcel-build-local && npm run copy-readme && npm run after-build && npm run parcel-open",
     "copy-readme": "find ./examples -type f -name 'README.md' -exec cp --parents {} ./dist \\;",
     "tsc-check": "tsc --noEmit",
-    "search": "ts-node ./scripts/searchForExampleFiles.ts",
-    "add-html": "ts-node ./scripts/addHtml.ts",
-    "parcel-build-prod": "npm run tsc-check && npm run search && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run copy-readme && npm run add-html ",
+    "before-build": "ts-node ./scripts/beforeBuild.ts",
+    "after-build": "ts-node ./scripts/afterBuild.ts",
+    "parcel-build-prod": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run copy-readme && npm run after-build",
     "parcel-build-local": "parcel build index.html 'examples/**/*.html'",
     "parcel-open": "parcel index.html --open"
   },
