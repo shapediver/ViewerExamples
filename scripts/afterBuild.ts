@@ -58,12 +58,12 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 bottomRightDiv.appendChild(gitHubButtonSpan);
 
                 // check if there is a README.md file in the directory
-                if (fs.existsSync('dist/' + directory + '/README.md')) {
+                if (fs.existsSync(directory + '/README.md')) {
                     const descriptionButtonSpan = createButtonSpan(document, 'description-button', 'description', `function toggleDiv() { const div = document.getElementById('readmeDiv'); if (div.style.display === 'none') { div.style.display = 'block'; } else { div.style.display = 'none'; } } toggleDiv();`);
                     topLeftDiv.appendChild(descriptionButtonSpan);
 
                     // read the README.md file
-                    const readMeContent = fs.readFileSync('dist/' + directory + '/README.md', 'utf-8');
+                    const readMeContent = fs.readFileSync(directory + '/README.md', 'utf-8');
 
                     // create a div element for the README.md content
                     const readmeDiv = document.createElement('div');

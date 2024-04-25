@@ -6,12 +6,11 @@
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
   "scripts": {
-    "start": "npm run tsc-check && npm run before-build && npm run parcel-build-local && npm run copy-readme && npm run after-build && npm run parcel-open",
-    "copy-readme": "find ./examples -type f -name 'README.md' -exec cp --parents {} ./dist \\;",
+    "start": "npm run tsc-check && npm run before-build && npm run parcel-build-local && npm run after-build && npm run parcel-open",
     "tsc-check": "tsc --noEmit",
     "before-build": "ts-node ./scripts/beforeBuild.ts",
     "after-build": "ts-node ./scripts/afterBuild.ts",
-    "parcel-build-prod": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run copy-readme && npm run after-build",
+    "parcel-build-prod": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run after-build",
     "parcel-build-local": "parcel build index.html 'examples/**/*.html'",
     "parcel-open": "parcel index.html --open"
   },
@@ -21,15 +20,15 @@
   "dependencies": {
     "@shapediver/viewer": "2.12.8",
     "@shapediver/viewer.features.attribute-visualization": "2.12.8",
-    "@shapediver/viewer.features.interaction": "2.12.8",
+    "@shapediver/viewer.features.interaction": "2.12.8"
+  },
+  "devDependencies": {
     "@types/jsdom": "^21.1.6",
     "codesandbox": "^2.2.3",
     "jsdom": "^24.0.0",
     "marked": "^12.0.2",
     "parcel-bundler": "^1.12.5",
-    "ts-node": "^10.9.2"
-  },
-  "devDependencies": {
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
 }
