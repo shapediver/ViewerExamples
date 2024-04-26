@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ShapeDiver</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .slide-out {
+      transition: 1s;
+      left: 83px;
+      visibility: visible;
+    }
+
+    .slide-in {
+      transition: 1s;
+      left: -79px;
+      visibility: none;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 80%;
+      height: 15px;
+      border-radius: 5px;
+      background: #fff;
+      outline: none;
+      opacity: 1;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+      margin: 0px;
+      margin-top: 5px;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      /* Override default look */
+      appearance: none;
+      width: 15px;
+      /* Set a specific slider handle width */
+      height: 15px;
+      /* Slider handle height */
+      background: #000;
+      /* Green background */
+      cursor: pointer;
+      /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+      width: 15px;
+      /* Set a specific slider handle width */
+      height: 15px;
+      /* Slider handle height */
+      background: #000;
+      /* Green background */
+      cursor: pointer;
+      /* Cursor on hover */
+    }
+
+    .color-icons {
+      background: #303030;
+      border-width: 2px;
+      border-color: white;
+      border-style: solid;
+    }
+
+    .slide-menu {
+      position: absolute;
+      z-index: -1;
+    }
+
+    .slider-div {
+      background: #303030;
+      width: 142px;
+      height: 75px;
+      border-width: 2px;
+      border-color: white;
+      border-style: solid;
+      margin-bottom: 4px;
+      padding-left: 4px;
+      padding-right: 4px;
+
+    }
+
+    .main-menu-image {
+      filter: invert(1);
+      border-width: 2px;
+      border-color: black;
+      border-style: solid;
+    }
+
+    body {
+      margin: 0px;
+    }
+
+    #viewer-div {
+      width: calc(100% - 79px);
+      left: 79px;
+      height: 100%;
+      display: flex;
+      position: absolute;
+      top: 0%;
+      z-index: -2;
+    }
+
+    #main-menu-div {
+      width: 79px;
+      height: 100%;
+      position: absolute;
+      top: 0%;
+    }
+
+    #colorDiv {
+      top: 83px;
+    }
+
+    #rimsDiv {
+      top: 166px;
+    }
+
+    #grillDiv {
+      top: 249px;
+    }
+
+    #plateDiv {
+      top: 332px;
+    }
+
+    #main-menu {
+      width: 79px;
+      height: 100%;
+      background-color: #303030;
+    }
+
+    #lambo-logo {
+      border-width: 2px;
+      border-color: #303030;
+      border-style: solid;
+    }
+
+    .slider-label {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    .slider-value {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      float: right;
+      margin-top: 3px;
+    }
+
+    .select {
+      width: 142px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .text-input {
+      width: 150px;
+      height: 75px;
+      font-size: x-large;
+      border-width: 2px;
+      border-color: black;
+      border-style: solid;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div id="viewer-div">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="main-menu-div">
+      <div id="colorDiv" class="slide-in slide-menu">
+        <img width="75px" height="75px" id="iconArancioXanto" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/ArancioXanto.png" />
+        <img width="75px" height="75px" id="iconBiancoAsopo" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/BiancoAsopo.png" />
+        <img width="75px" height="75px" id="iconBluNethuns" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/BluNethuns.png" />
+        <img width="75px" height="75px" id="iconGialloBelenus" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/GialloBelenus.png" />
+        <img width="75px" height="75px" id="iconGrigioTelesto" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/GrigioTelesto.png" />
+        <img width="75px" height="75px" id="iconVerdeSelvans" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/VerdeSelvans.png" />
+        <img width="75px" height="75px" id="iconViolaPasifae" class="color-icons"
+          src="https://viewer.shapediver.com/v3/images/lambo/ViolaPasifae.png" />
+      </div>
+      <div id="rimsDiv" class="slide-in slide-menu">
+        <div class="slider-div">
+          <p class="slider-label">Number of Spokes</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputNumberOfSpokes">
+          </input>
+          <p id="valueNumberOfSpokes" class="slider-value"></p>
+        </div>
+
+        <div class="slider-div">
+
+          <p class="slider-label">Ingoing Force</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputIngoingForce">
+          </input>
+          <p id="valueIngoingForce" class="slider-value"></p>
+        </div>
+
+        <div class="slider-div">
+
+          <p class="slider-label">Go Insane</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputGoInsane">
+          </input>
+          <p id="valueGoInsane" class="slider-value"></p>
+        </div>
+      </div>
+      <div id="grillDiv" class="slide-in slide-menu">
+        <div class="slider-div">
+
+          <p class="slider-label">Pattern</p>
+          <select class="select" id="inputPattern">
+          </select>
+        </div>
+
+        <div id="divHorizontal" class="slider-div">
+
+          <p class="slider-label">Horizontal</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputHorizontal">
+          </input>
+          <p id="valueHorizontal" class="slider-value"></p>
+        </div>
+        <div id="divVertical" class="slider-div">
+
+          <p class="slider-label">Vertical</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputVertical">
+          </input>
+          <p id="valueVertical" class="slider-value"></p>
+        </div>
+        <div id="divMorphing" class="slider-div">
+
+          <p class="slider-label">Morphing</p>
+          <input type="range" min="1" max="100" value="50" class="slider" id="inputMorphing">
+          </input>
+          <p id="valueMorphing" class="slider-value"></p>
+        </div>
+      </div>
+      <div id="plateDiv" class="slide-in slide-menu">
+        <input class="text-input" type="text" id="plateText" />
+      </div>
+      <div id="main-menu">
+        <img id="lambo-logo" width="75px" height="75px"
+          src="https://viewer.shapediver.com/v3/images/lambo/Lamborghini-Logo.png" />
+        <img id="iconColor" width="75px" height="75px" class="main-menu-image"
+          src="https://viewer.shapediver.com/v3/images/lambo/palette_icon.png" />
+        <img id="iconRims" width="75px" height="75px" class="main-menu-image"
+          src="https://viewer.shapediver.com/v3/images/lambo/rim_icon.png" />
+        <img id="iconGrill" width="75px" height="75px" class="main-menu-image"
+          src="https://viewer.shapediver.com/v3/images/lambo/grill_icon.png" />
+        <img id="iconPlate" width="75px" height="75px" class="main-menu-image"
+          src="https://viewer.shapediver.com/v3/images/lambo/plate_icon.png" />
+      </div>
+    </div>
+  </div>
+  <script src="src/index.ts"></script>
+</body>
+
+</html>

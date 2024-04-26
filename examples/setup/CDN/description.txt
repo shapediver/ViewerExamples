@@ -1,0 +1,1 @@
+Using the Viewer API via a CDN.

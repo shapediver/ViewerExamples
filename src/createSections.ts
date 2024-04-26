@@ -1,5 +1,36 @@
 import { markdownFiles } from "./input";
 import { FolderStructure } from "./parseInput";
+import { createHash } from 'crypto';
+
+const createFormSubmit = (id: string, parameters: string): HTMLFormElement => {
+    const form = document.createElement('form') as HTMLFormElement;
+    const input = document.createElement('input') as HTMLInputElement;
+    const inputInner = document.createElement('input') as HTMLInputElement;
+    
+    form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
+    form.method = 'POST';
+    form.target = '_blank';
+    
+    input.type = 'hidden';
+    input.name = 'parameters';
+    input.value = parameters;
+    
+    inputInner.type = "submit";
+    inputInner.id = id;
+    inputInner.style.display = "none";
+    inputInner.value = "Create CodeSandbox";
+    
+    form.appendChild(input);
+    form.appendChild(inputInner);
+
+    return form;
+}
+
+const createId = (path: string) => {
+    const id = createHash('sha256');
+    id.update(path);
+    return id.digest('hex');
+}
 
 /**
  * Traverse the folder structure and create a list of items
@@ -20,21 +51,25 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
 
             // create a link to the file
             const a = document.createElement("a");
-            a.textContent = (folder[f].name as string).replace(/-/g, ' ');
+            a.textContent = (folder[f].name as string).replace(/-/g, ' ').replace(/_/g, ' ');
+            a.style.textTransform = 'capitalize';
             a.href = folder[f].href as string;
             div.appendChild(a);
 
             // create an icon for the code sandbox link
             const codeSandBoxSpan = document.createElement("span");
-            codeSandBoxSpan.id = 'home-button';
+            codeSandBoxSpan.id = 'codeSandBoxSpan-button';
             codeSandBoxSpan.className = "material-symbols-outlined button";
             codeSandBoxSpan.textContent = 'deployed_code';
-            codeSandBoxSpan.setAttribute('onclick', `window.open('${folder[f].codeSandBox}', '_blank')`);
+            const id = createId(folder[f].codeSandBox as string);
+            const formSubmit = createFormSubmit(id, folder[f].codeSandBox as string);
+            codeSandBoxSpan.appendChild(formSubmit);
+            codeSandBoxSpan.onclick = () => document.getElementById(id)!.click();
             div.appendChild(codeSandBoxSpan);
 
             // create an icon for the github link
             const gitHubSpan = document.createElement("span");
-            gitHubSpan.id = 'home-button';
+            gitHubSpan.id = 'gitHub-button';
             gitHubSpan.className = "material-symbols-outlined button";
             gitHubSpan.innerHTML = 'code';
             gitHubSpan.setAttribute('onclick', `window.open('${folder[f].github}', '_blank')`);
@@ -60,9 +95,6 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             const ul = document.createElement('ul');
             const li = document.createElement("li");
             li.className = 'folder';
-            li.textContent = f.replace(/-/g, ' ');
-            parent.appendChild(li);
-            parent.appendChild(ul);
 
             const currentPath = path + f + '/';
 
@@ -72,14 +104,27 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
                 const markdownElement = document.createElement('div');
                 markdownElement.innerHTML = markdownData.markdown;
                 markdownElement.style.fontSize = 'medium';
-                markdownElement.style.paddingTop = '1rem';
                 markdownElement.style.fontWeight = 'normal';
                 li.appendChild(markdownElement);
+            } else {
+                li.textContent = f.replace(/-/g, ' ').replace(/_/g, ' ');
             }
+            parent.appendChild(li);
+            li.appendChild(ul);
 
             traverseList(ul, folder[f] as FolderStructure, path + f + '/');
         }
     }
+    
+    // order the list
+    const items = Array.from(parent.children);
+    items.sort((a, b) => {
+        if (a.className === b.className) {
+            return a.textContent!.localeCompare(b.textContent!);
+        }
+        return a.className === 'folder' ? 1 : -1;
+    });
+    items.forEach((item) => parent.appendChild(item));
 }
 
 /**

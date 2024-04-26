@@ -1,1 +1,3 @@
-Description of the section with some links!
+### Viewport
+
+The Viewport is responsible for rendering and rendering related settings. For example, camera and light management happens here. Additionally, a Viewport has many options, as rendering options can be enabled or disabled (shadows, ambient occlusion, etc.) and scene properties can be adjusted (groundplane, grid, etc.). A Viewport can exist completely without a Session, as a Session can exist without a Viewport.

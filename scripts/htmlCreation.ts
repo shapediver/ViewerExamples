@@ -45,6 +45,30 @@ export const addHeaderContent = (document: Document, head: HTMLHeadElement) => {
     head.appendChild(buttonContainerStyleSheet);
 }
 
+const createFormSubmit = (document: Document, id: string, parameters: string): HTMLFormElement => {
+    const form = document.createElement('form') as HTMLFormElement;
+    const input = document.createElement('input') as HTMLInputElement;
+    const inputInner = document.createElement('input') as HTMLInputElement;
+    
+    form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
+    form.method = 'POST';
+    form.target = '_blank';
+    
+    input.type = 'hidden';
+    input.name = 'parameters';
+    input.value = parameters;
+    
+    inputInner.type = "submit";
+    inputInner.id = `form_${id}`;
+    inputInner.style.display = "none";
+    inputInner.value = "Create CodeSandbox";
+    
+    form.appendChild(input);
+    form.appendChild(inputInner);
+
+    return form;
+}
+
 /**
  * Creates a button span element
  * 
@@ -58,8 +82,14 @@ export const createButtonSpan = (document: Document, id: string, text: string, u
     const span = document.createElement('span');
     span.id = id;
     span.className = 'material-symbols-outlined button';
-    span.setAttribute('onclick', url);
     span.innerHTML = text;
+    if(url.startsWith('http') || url.startsWith('window')) {
+        span.setAttribute('onclick', `window.open('${url}', '_blank')`);
+    } else {
+        const formSubmit = createFormSubmit(document, id, url);
+        span.setAttribute('onclick', `document.getElementById('form_${id}').click()`);
+        span.appendChild(formSubmit);
+    }
     return span;
 }
 

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { createCodeSandBoxUrl, createGithubUrl } from './linkCreation';
+import { createCodeSandBoxParameters, createGithubUrl } from './linkCreation';
 import marked from 'marked';
 
 const data = fs.readFileSync('package.json', 'utf8')
@@ -41,7 +41,7 @@ const getHTMLFilesFromFolder = (dir: string) => {
 
                 results.push({
                     href: file,
-                    codeSandBoxUrl: createCodeSandBoxUrl(directory, dependencies, packageJson),
+                    codeSandBoxUrl: createCodeSandBoxParameters(directory, dependencies, packageJson),
                     githubUrl: createGithubUrl(directory),
                     description
                 });

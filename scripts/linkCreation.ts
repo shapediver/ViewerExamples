@@ -30,11 +30,11 @@ const getFileNames = (dir: string): string[] => {
  * @returns 
  */
 export const createGithubUrl = (directory: string) => {
-    return `https://github.com/shapediver/ViewerExamples/blob/development/${directory}/src/index.ts`;
+    return `https://github.com/shapediver/ViewerExamples/blob/development/${directory}`;
 }
 
 /**
- * Create a codesandbox url for a directory
+ * Create a codesandbox parameters for a directory
  * The dependencies are extracted from the files in the directory
  * 
  * @param directory 
@@ -42,7 +42,7 @@ export const createGithubUrl = (directory: string) => {
  * @param packageJson 
  * @returns 
  */
-export const createCodeSandBoxUrl = (directory: string, dependencies: { [key: string]: string }, packageJson: any) => {
+export const createCodeSandBoxParameters = (directory: string, dependencies: { [key: string]: string }, packageJson: any) => {
     // get other files in the directory
     const fileNames = getFileNames(directory);
 
@@ -78,13 +78,51 @@ export const createCodeSandBoxUrl = (directory: string, dependencies: { [key: st
     }
 
     files['package.json'] = {
-        content: {
-            dependencies: dep
-        } as unknown as string,
+        content: JSON.stringify({
+            dependencies: dep,
+            main: "index.html",
+            scripts: {
+                "start": "parcel index.html --open",
+                "build": "parcel build index.html"
+            },
+            devDependencies: {
+                "parcel-bundler": "^1.12.5",
+                "typescript": "^5.4.5"
+            }
+        }),
         isBinary: false
     };
 
-    const parameters = getParameters({ files });
+    files['sandbox.config.json'] ={
+        content: JSON.stringify({
+            "infiniteLoopProtection": true,
+            "hardReloadOnChange": true,
+            "view": "browser",
+            "template": "parcel"
+        }),
+        isBinary: false
+    }
 
-    return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${parameters}`;
+    files['tsconfig.json'] = {
+        content: JSON.stringify({
+            "compilerOptions": {
+                "module": "commonjs",
+                "removeComments": false,
+                "esModuleInterop": true,
+                "sourceMap": false,
+                "declaration": false,
+                "declarationMap": false,
+                "target": "ES6",
+                "strict": true,
+                "outDir": "dist",
+                "experimentalDecorators": true,
+                "emitDecoratorMetadata": true,
+                "moduleResolution": "node"
+            },
+            "exclude": ["node_modules", "dist"]
+        }),
+        isBinary: false
+    }
+
+    return getParameters({ files });
 }

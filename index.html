@@ -15,6 +15,11 @@
             color: #be47fd
         }
 
+        h3 {
+            margin-top: 1rem !important;
+            margin-bottom: 0.1rem;
+        }
+
         .button {
             cursor: pointer;
             padding-left: 0.25rem;
@@ -29,9 +34,8 @@
         ul {
             font-size: large;
             list-style-type: disc;
-            text-transform: capitalize;
             padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding-inline-start: 60px;
         }
 
         ul:not(ul ul) {
@@ -39,14 +43,16 @@
         }
 
         .folder {
-            padding-bottom: 0.5rem;
             font-weight: bold;
             font-size: large;
             list-style-type: none;
             color: #000;
+            transform: translate(-20px, 0);
+            line-height: 0;
         }
 
         .file {
+            font-weight: normal;
             font-size: medium;
             padding-bottom: 0.5rem;
             list-style-type: disc;
@@ -78,7 +84,7 @@
         .content {
             background-color: #fff;
 
-            padding-left: 10%;
+            padding-left: calc(10% + 20px);
             padding-right: 10%;
             padding-bottom: 5rem;
             padding-top: 3.5rem;

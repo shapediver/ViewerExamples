@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import marked from 'marked';
 import { JSDOM } from 'jsdom';
 import { addHeaderContent, createCornerContainers, createButtonSpan } from './htmlCreation';
-import { createGithubUrl, createCodeSandBoxUrl } from './linkCreation';
+import { createGithubUrl, createCodeSandBoxParameters } from './linkCreation';
 
 const data = fs.readFileSync('package.json', 'utf8')
 
@@ -49,11 +49,11 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 const { topLeftDiv, topRightDiv, bottomLeftDiv, bottomRightDiv } = createCornerContainers(document, body);
 
                 // create the buttons
-                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
+                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', `window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html'`);
                 bottomLeftDiv.appendChild(homeButtonSpan);
 
-                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', 'code', `window.open("${createGithubUrl(directory)}")`);
-                const codeSandBoxButtonSpan = createButtonSpan(document, 'codeSandBox-button', 'deployed_code', `window.open("${createCodeSandBoxUrl(directory, dependencies, packageJson)}")`);
+                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', 'code', createGithubUrl(directory));
+                const codeSandBoxButtonSpan = createButtonSpan(document, 'codeSandBox-button', 'deployed_code', createCodeSandBoxParameters(directory, dependencies, packageJson));
                 bottomRightDiv.appendChild(codeSandBoxButtonSpan);
                 bottomRightDiv.appendChild(gitHubButtonSpan);
 

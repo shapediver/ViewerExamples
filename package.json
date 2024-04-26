@@ -8,11 +8,11 @@
   "scripts": {
     "start": "npm run tsc-check && npm run before-build && npm run parcel-build-local && npm run after-build && npm run parcel-open",
     "tsc-check": "tsc --noEmit",
-    "before-build": "ts-node ./scripts/beforeBuild.ts",
+    "before-build": "rm -rf ./dist && ts-node ./scripts/beforeBuild.ts",
     "after-build": "ts-node ./scripts/afterBuild.ts",
     "parcel-build-prod": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run after-build",
     "parcel-build-local": "parcel build index.html 'examples/**/*.html'",
-    "parcel-open": "parcel index.html --open"
+    "parcel-open": "parcel index.html --open --port 8080"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,9 @@
   "dependencies": {
     "@shapediver/viewer": "2.12.8",
     "@shapediver/viewer.features.attribute-visualization": "2.12.8",
-    "@shapediver/viewer.features.interaction": "2.12.8"
+    "@shapediver/viewer.features.interaction": "2.12.8",
+    "@types/three": "0.152.0",
+    "three": "0.152.2"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.6",
