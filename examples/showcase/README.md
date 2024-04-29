@@ -1,3 +1,3 @@
 ### Showcase
 
-In our showcase we present examples that combine many features and create powerful applications with them.
+In our showcase examples we present the combination of many features and create powerful applications with them.

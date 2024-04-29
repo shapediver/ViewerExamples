@@ -53,6 +53,7 @@ const createFormSubmit = (document: Document, id: string, parameters: string): H
     form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
     form.method = 'POST';
     form.target = '_blank';
+    form.style.display = 'none';
     
     input.type = 'hidden';
     input.name = 'parameters';
@@ -83,8 +84,8 @@ export const createButtonSpan = (document: Document, id: string, text: string, u
     span.id = id;
     span.className = 'material-symbols-outlined button';
     span.innerHTML = text;
-    if(url.startsWith('http') || url.startsWith('window')) {
-        span.setAttribute('onclick', `window.open('${url}', '_blank')`);
+    if(url.startsWith('window.open') || url.startsWith('function')) {
+        span.setAttribute('onclick', url);
     } else {
         const formSubmit = createFormSubmit(document, id, url);
         span.setAttribute('onclick', `document.getElementById('form_${id}').click()`);

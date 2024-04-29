@@ -1,0 +1,1 @@
+This showcase demonstrates how multiple sessions can be used effectively.

@@ -1,1 +1,1 @@
-Creating multiple viewports and hiding parts of the geometry.
+Creating multiple viewports with different cameras in them.

@@ -1,0 +1,1 @@
+This showcase demonstrates the loading and displaying of glTFs.

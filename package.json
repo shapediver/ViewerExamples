@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@shapediver/viewer": "2.12.8",
+    "@shapediver/viewer.shared.demo-helper": "2.12.8",
     "@shapediver/viewer.features.attribute-visualization": "2.12.8",
     "@shapediver/viewer.features.interaction": "2.12.8",
     "@types/three": "0.152.0",

@@ -49,10 +49,10 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 const { topLeftDiv, topRightDiv, bottomLeftDiv, bottomRightDiv } = createCornerContainers(document, body);
 
                 // create the buttons
-                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', `window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html'`);
+                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
                 bottomLeftDiv.appendChild(homeButtonSpan);
 
-                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', 'code', createGithubUrl(directory));
+                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', 'code', `window.open("${createGithubUrl(directory)}", '_blank')`);
                 const codeSandBoxButtonSpan = createButtonSpan(document, 'codeSandBox-button', 'deployed_code', createCodeSandBoxParameters(directory, dependencies, packageJson));
                 bottomRightDiv.appendChild(codeSandBoxButtonSpan);
                 bottomRightDiv.appendChild(gitHubButtonSpan);
@@ -80,5 +80,30 @@ const getHTMLFilesFromFolder = (dir: string) => {
     });
 };
 
+const copyImageFiles = (dir: string) => {
+    fs.readdirSync(dir).forEach(function (file) {
+        file = dir + '/' + file;
+        const stat = fs.statSync(file);
+        if (stat && stat.isDirectory()) {
+            copyImageFiles(file);
+        } else {
+            if (file.endsWith('.png') || file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.gif')) {
+                const parts = file.split('/');
+                const directory = parts.slice(0, parts.length - 1).join('/');
+
+                // check if the directory exists
+                if (!fs.existsSync('dist/' + directory)) {
+                    fs.mkdirSync('dist/' + directory, { recursive: true });
+                }
+
+                fs.copyFileSync(file, 'dist/' + directory + '/' + parts[parts.length - 1]);
+            }
+        }
+    });
+};
+
 // Write the files to a file
 getHTMLFilesFromFolder('dist');
+
+// Copy the image files
+copyImageFiles('examples');

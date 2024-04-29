@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>ShapeDiver Sandbox</title>
+    <meta charset="UTF-8" />
+    <style>
+      p {
+        margin: 0px;
+      }
+      ul {
+        margin: 0px;
+      }
+    </style>
+  </head>
+
+  <body style="background: #303030;">
+    <div
+      style="
+        position: absolute;
+        width: calc(100% - 10px);
+        height: calc(85% - 60px);
+        top: 60px;
+      "
+    >
+      <canvas id="canvas"></canvas>
+    </div>
+    <div
+      id="description"
+      style="
+        position: absolute;
+        display: grid;
+        left: 10px;
+        bottom: 0px;
+        padding: 5px;
+        background: white;
+        width: calc(100% - 30px);
+        height: 15%;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      "
+    ></div>
+    <div
+      id="screenshots"
+      style="
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: calc(100% - 10px);
+      "
+    ></div>
+    <div
+      id="materials"
+      style="position: absolute; display: grid; right: 10px; top: 10px;"
+    ></div>
+    <div
+      id="animations"
+      style="position: absolute; display: grid; left: 10px; top: 10px;"
+    ></div>
+    <script src="src/index.ts"></script>
+  </body>
+</html>

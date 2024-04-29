@@ -1,4 +1,4 @@
-import { createViewport, createSession, ITreeNode } from "@shapediver/viewer";
+import { createViewport, createSession, ITreeNode, ORTHOGRAPHIC_CAMERA_DIRECTION } from "@shapediver/viewer";
 
 (async () => {
   // create a viewport1
@@ -21,25 +21,8 @@ import { createViewport, createSession, ITreeNode } from "@shapediver/viewer";
     id: "mySession"
   });
 
-  const hideGeometry = (newNode?: ITreeNode) => {
-    // search for the door node and hide it in viewport 2
-    const doorOutput = session.getOutputByName("Door")[0];
-    doorOutput.node!.excludeViewports = ["myViewport2"];
-    doorOutput.node!.updateVersion();
-
-    // search for the right feet node and hide it in viewport 1
-    const feetRightOutput = session.getOutputByName("FeetRight")[0];
-    feetRightOutput.node!.excludeViewports = ["myViewport1"];
-    feetRightOutput.node!.updateVersion();
-
-    viewport1.update();
-    viewport2.update();
-  };
-
-  // The "updateCallback" is always executed after a session customization call.
-  // This ensures that the outputs stay hidden when the geometry changes
-  session.updateCallback = hideGeometry;
-
-  // I just call it once in the beginning to start hiding
-  hideGeometry();
+  // create a new orthographic camera
+  const camera = viewport2.createOrthographicCamera();
+  camera.direction = ORTHOGRAPHIC_CAMERA_DIRECTION.FRONT;
+  viewport2.assignCamera(camera.id);
 })();
