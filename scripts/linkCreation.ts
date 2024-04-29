@@ -74,6 +74,11 @@ export const createCodeSandBoxParameters = (directory: string, dependencies: { [
                 }
 
             };
+        } if(fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.gif')) {
+            files[fileName] = {
+                content: `https://raw.githubusercontent.com/shapediver/ViewerExamples/development/${directory}/${fileName}`,
+                isBinary: true
+            }
         }
     }
 
