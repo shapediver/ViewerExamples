@@ -1,0 +1,1 @@
+Various ways of how the camera can be moved programmatically.

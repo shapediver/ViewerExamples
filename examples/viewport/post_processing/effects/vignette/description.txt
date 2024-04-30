@@ -1,0 +1,1 @@
+A vignette post-processing effect is a visual technique used in computer graphics and image processing to darken or fade the corners or edges of an image, creating a subtle or dramatic framing effect.

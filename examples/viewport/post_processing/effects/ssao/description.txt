@@ -1,0 +1,1 @@
+SSAO stands for "Screen Space Ambient Occlusion," which is another rendering technique used in computer graphics and video games to enhance the realism and visual quality of 3D scenes. SSAO is a variant of ambient occlusion that operates in screen-space, meaning it uses only the information available in the rendered image without requiring access to the full 3D scene geometry.

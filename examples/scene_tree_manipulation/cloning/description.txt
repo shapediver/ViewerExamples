@@ -1,0 +1,1 @@
+Clone and translate the results of a computation.

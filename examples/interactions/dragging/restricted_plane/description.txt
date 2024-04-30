@@ -1,0 +1,1 @@
+Restrict a plane on which to drag to a specified length and width.

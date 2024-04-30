@@ -1,0 +1,1 @@
+Select outputs and automatically deselect them after an interval.

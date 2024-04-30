@@ -1,0 +1,1 @@
+Adjusting (removing or changing) the logo of the viewer and setting the color and opacity of the logo background.

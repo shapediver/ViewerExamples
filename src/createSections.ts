@@ -6,20 +6,20 @@ const createFormSubmit = (id: string, parameters: string): HTMLFormElement => {
     const form = document.createElement('form') as HTMLFormElement;
     const input = document.createElement('input') as HTMLInputElement;
     const inputInner = document.createElement('input') as HTMLInputElement;
-    
+
     form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
     form.method = 'POST';
     form.target = '_blank';
-    
+
     input.type = 'hidden';
     input.name = 'parameters';
     input.value = parameters;
-    
+
     inputInner.type = "submit";
     inputInner.id = id;
     inputInner.style.display = "none";
     inputInner.value = "Create CodeSandbox";
-    
+
     form.appendChild(input);
     form.appendChild(inputInner);
 
@@ -100,28 +100,87 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
 
             const markdownData = markdownFiles.find((file) => file.path === currentPath);
 
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            li.appendChild(div);
+
+            let sectionName: string | undefined;
+            let collapse = false;
             if (markdownData) {
                 const markdownElement = document.createElement('div');
                 markdownElement.innerHTML = markdownData.markdown;
+                console.log(markdownData.markdown)
+
+                // get first h3 element
+                const h3 = markdownElement.querySelector('h3');
+                if (h3) {
+                    sectionName = h3.textContent?.replace(/-/g, ' ').replace(/_/g, ' ').toLowerCase() as string;
+                    h3.textContent = sectionName;
+                    h3.style.textTransform = 'capitalize';
+                }
+
+                if (markdownData.markdown.includes('<!-- collapse -->'))
+                    collapse = true;
+
                 markdownElement.style.fontSize = 'medium';
                 markdownElement.style.fontWeight = 'normal';
-                li.appendChild(markdownElement);
-            } else {
-                li.textContent = f.replace(/-/g, ' ').replace(/_/g, ' ');
+                div.appendChild(markdownElement);
             }
+
+            if (sectionName === undefined) {
+                const paragraphElement = document.createElement('p');
+                sectionName = f.replace(/-/g, ' ').replace(/_/g, ' ');
+                paragraphElement.textContent = sectionName;
+                paragraphElement.style.textTransform = 'capitalize';
+                paragraphElement.style.marginTop = '1rem';
+                paragraphElement.style.marginBottom = '0.1rem';
+                div.prepend(paragraphElement);
+            }
+
+            li.id = sectionName;
+            div.id = sectionName;
+
+            if (collapse) {
+                // add arrow icon
+                const span = document.createElement('span');
+                span.className = 'material-symbols-outlined button';
+                span.textContent = 'expand_more';
+                span.style.marginTop = '1rem';
+                div.prepend(span);
+
+                div.style.cursor = 'pointer';
+                div.style.transform = 'translate(-18px, 0)';
+                div.onclick = () => {
+                    const ul = li.querySelector('ul');
+                    if (ul)
+                        ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
+                    span.textContent = span.textContent === 'expand_more' ? 'expand_less' : 'expand_more';
+                }
+            }
+
             parent.appendChild(li);
             li.appendChild(ul);
 
             traverseList(ul, folder[f] as FolderStructure, path + f + '/');
+
+            // collapse the list initially
+            if (collapse) {
+                const ul = li.querySelector('ul');
+                if (ul)
+                    ul.style.display = 'none';
+            }
         }
     }
-    
+
+    // order the list
+    const order = ['showcase', 'setup', 'session', 'viewport', 'scene tree manipulation', 'augmented reality', 'materials', 'html anchors', 'animations', 'three.js', 'general', 'interactions', 'attribute visualization'];
+
     // order the list
     const items = Array.from(parent.children);
     items.sort((a, b) => {
-        if (a.className === b.className) {
-            return a.textContent!.localeCompare(b.textContent!);
-        }
+        if (a.className === b.className)
+            return order.indexOf(a.id) - order.indexOf(b.id);
         return a.className === 'folder' ? 1 : -1;
     });
     items.forEach((item) => parent.appendChild(item));

@@ -1,0 +1,1 @@
+Either load the model in AR or create a QR-Code if not on a compatible device.

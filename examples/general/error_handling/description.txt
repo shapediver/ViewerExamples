@@ -1,0 +1,1 @@
+How errors can be caught and converted.

@@ -1,0 +1,1 @@
+Allow to upload only specific types of files.

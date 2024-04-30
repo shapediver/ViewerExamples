@@ -1,0 +1,1 @@
+A noise post-processing effect is a visual technique used in computer graphics and image processing to simulate random variations in pixel values, creating a grainy or textured appearance. 

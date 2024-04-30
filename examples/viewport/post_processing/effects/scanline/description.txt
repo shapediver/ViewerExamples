@@ -1,0 +1,1 @@
+A scanline post-processing effect is a visual technique used in computer graphics and image processing to simulate the appearance of a cathode ray tube (CRT) display or an analog video signal.

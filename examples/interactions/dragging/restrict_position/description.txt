@@ -1,0 +1,1 @@
+Interaction example where the dragged points define the shape of the model.

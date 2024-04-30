@@ -1,0 +1,1 @@
+All types of html anchors (text, image and custom) in one model.

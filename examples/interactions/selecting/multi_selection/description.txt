@@ -1,0 +1,1 @@
+Select multiple objects at once.

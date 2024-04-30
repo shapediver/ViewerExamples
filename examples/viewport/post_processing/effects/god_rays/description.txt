@@ -1,0 +1,1 @@
+God rays, also known as crepuscular rays or volumetric lighting, are a post-processing effect used in computer graphics and video games to simulate the phenomenon of light scattering and creating visible rays or beams of light in an atmospheric or foggy environment.

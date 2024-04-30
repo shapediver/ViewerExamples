@@ -1,0 +1,1 @@
+All material properties exposed in a simple UI.

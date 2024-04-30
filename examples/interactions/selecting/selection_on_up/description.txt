@@ -1,0 +1,1 @@
+Selection on pointer up events.

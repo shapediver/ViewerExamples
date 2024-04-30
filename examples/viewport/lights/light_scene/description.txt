@@ -1,0 +1,1 @@
+Creation of a new light scene with custom lights.

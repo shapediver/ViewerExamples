@@ -1,0 +1,1 @@
+Restrict the position, target, rotation and zooming of the camera.

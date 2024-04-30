@@ -1,0 +1,1 @@
+Change the a property (in this case the translation) of a node every time it updates.

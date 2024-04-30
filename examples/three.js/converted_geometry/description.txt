@@ -1,0 +1,1 @@
+Retrieve the converted three.js geometry from the scene tree.

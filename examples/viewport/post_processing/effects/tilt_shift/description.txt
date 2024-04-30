@@ -1,0 +1,1 @@
+A tilt-shift post-processing effect is a visual technique used in computer graphics and image processing to simulate the appearance of a miniature scene or model-like photography.

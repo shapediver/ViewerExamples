@@ -1,0 +1,1 @@
+Depth of field is a post-processing effect used in computer graphics and video games to mimic the selective focus of a camera lens.

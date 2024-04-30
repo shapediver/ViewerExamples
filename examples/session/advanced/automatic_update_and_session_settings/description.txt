@@ -1,0 +1,1 @@
+Do not update the visible scene and only store the results in local values.

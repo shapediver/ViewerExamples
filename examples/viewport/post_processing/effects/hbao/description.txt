@@ -1,0 +1,1 @@
+HBAO stands for "Horizon-Based Ambient Occlusion," a rendering technique commonly used in modern video games and computer graphics to enhance the visual realism of 3D scenes. Ambient occlusion is a shading and lighting technique that simulates the soft shadows created by ambient light in the environment.

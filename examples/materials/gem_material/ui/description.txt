@@ -1,0 +1,1 @@
+Advanced example of the gem stone rendering with UI.

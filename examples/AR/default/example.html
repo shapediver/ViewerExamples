@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>ShapeDiver Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div
+      style="
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        left: 0%;
+        top: 0%;
+      "
+    >
+      <canvas id="canvas"></canvas>
+    </div>
+    <input
+      type="image"
+      style="position: absolute; left: 25px; top: 25px;"
+      width="150"
+      height="150"
+      src="https://developers.google.com/ar/develop/java/images/ic_view_in_ar_new_googblue_48dp.png"
+      onclick="window.loadAR()"
+    />
+    <script src="src/index.ts"></script>
+  </body>
+</html>

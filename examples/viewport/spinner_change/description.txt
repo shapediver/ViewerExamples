@@ -1,0 +1,1 @@
+Adjustments to the busy spinner that is shown and positioning of it.

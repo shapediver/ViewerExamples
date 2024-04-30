@@ -1,0 +1,1 @@
+An outline post-processing effect is a visual technique used in computer graphics and image processing to emphasize the edges of objects in an image by adding a distinct border or outline around them.

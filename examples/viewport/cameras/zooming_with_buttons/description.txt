@@ -1,0 +1,1 @@
+Zooming with a plus and a minus button.

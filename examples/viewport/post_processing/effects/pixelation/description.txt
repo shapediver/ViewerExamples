@@ -1,0 +1,1 @@
+Pixelation is a post-processing effect used in computer graphics and image processing to intentionally degrade the resolution and visibility of an image by increasing the size of individual pixels.

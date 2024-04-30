@@ -1,0 +1,1 @@
+Gem stone rendering with a custom environment map.

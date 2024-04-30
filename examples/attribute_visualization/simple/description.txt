@@ -1,0 +1,1 @@
+A simple example on how to start the attribute visualization.

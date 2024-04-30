@@ -1,0 +1,1 @@
+A bloom post-processing effect is a visual enhancement technique commonly used in computer graphics and video games to simulate the appearance of bright objects. This is a specific case of the bloom effect where specific objects are selected to which the bloom is applied to.

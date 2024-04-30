@@ -1,0 +1,1 @@
+Example of the bump / normal material properties.

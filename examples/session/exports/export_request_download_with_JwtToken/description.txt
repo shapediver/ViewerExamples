@@ -1,0 +1,1 @@
+Request an export and download the file with a jwtToken.

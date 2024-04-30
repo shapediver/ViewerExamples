@@ -1,0 +1,1 @@
+Decide yourself when you want to show the contents of the viewport.

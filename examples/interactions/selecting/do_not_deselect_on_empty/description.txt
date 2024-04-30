@@ -1,0 +1,1 @@
+When clicking on an empty part of the scene, the objects will not get deselected.

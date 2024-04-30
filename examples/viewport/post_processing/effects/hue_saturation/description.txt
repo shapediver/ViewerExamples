@@ -1,0 +1,1 @@
+A simple hue-saturation post-processing effect to adapt the hue and saturation of the output image.

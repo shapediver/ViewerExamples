@@ -1,0 +1,1 @@
+Use the intersection of a selection event to place objects.

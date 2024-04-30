@@ -1,0 +1,1 @@
+A grid post-processing effect is a visual technique used in computer graphics and image processing to overlay a grid pattern onto an image.

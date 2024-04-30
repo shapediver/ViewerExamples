@@ -1,0 +1,1 @@
+Clip part of the geometry with a clipping plane.

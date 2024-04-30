@@ -1,0 +1,1 @@
+A dot screen post-processing effect is a visual technique used in computer graphics and image processing to simulate the appearance of halftone printing.

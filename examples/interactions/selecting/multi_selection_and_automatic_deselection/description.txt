@@ -1,0 +1,1 @@
+Select multi objects, some of them automatically and deselect them after an interval.

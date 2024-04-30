@@ -1,0 +1,1 @@
+Retrieve the data from a data output.

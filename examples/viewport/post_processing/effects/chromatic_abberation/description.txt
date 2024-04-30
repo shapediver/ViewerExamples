@@ -1,0 +1,1 @@
+Chromatic aberration is a post-processing effect commonly used in computer graphics and video games to simulate a lens aberration that occurs in real-world cameras and lenses.

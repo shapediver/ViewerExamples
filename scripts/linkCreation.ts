@@ -52,7 +52,7 @@ export const createCodeSandBoxParameters = (directory: string, dependencies: { [
 
     for (let i = 0; i < fileNames.length; i++) {
         const fileName = fileNames[i].replace(directory + '/', '');
-        if (fileName.endsWith('.ts') || fileName.endsWith('.js') || fileName.endsWith('.css') || fileName.endsWith('.json') || fileName.endsWith('.html')) {
+        if (fileName.endsWith('.ts') || fileName.endsWith('.js') || fileName.endsWith('.css') || fileName.endsWith('.json') || fileName.endsWith('.html') || fileName.endsWith('.svg')) {
             const content = fs.readFileSync(fileNames[i], 'utf-8');
 
             for (const key in dependencies) {

@@ -1,0 +1,1 @@
+Example of the specular material properties.

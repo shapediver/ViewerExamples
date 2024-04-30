@@ -1,0 +1,1 @@
+A sepia post-processing effect is a visual technique used in computer graphics and image processing to simulate the appearance of aged or antique photographs.

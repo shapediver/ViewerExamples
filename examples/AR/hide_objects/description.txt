@@ -1,0 +1,1 @@
+Hide objects that should not be shown in the AR scene.
