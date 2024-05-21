@@ -32,7 +32,7 @@ import {
     newNode.traverseData((d) => {
       // for every geometry data, log the three.js objects, which in this case is the Mesh
       if (d instanceof GeometryData) {
-        console.log(d.threeJsObject[viewport.id]);
+        console.log(d.convertedObject[viewport.id]);
       }
     });
   };

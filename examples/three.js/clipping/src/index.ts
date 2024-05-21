@@ -45,9 +45,9 @@ import {
   addListener(EVENTTYPE.VIEWPORT.VIEWPORT_UPDATED, () => {
     output.node?.traverseData((d) => {
       if (d instanceof GeometryData) {
-        (d.threeJsObject[viewport.id]
+        ((d.convertedObject[viewport.id] as THREE.Mesh)
           .material as THREE.Material).clippingPlanes = [clippingPlane];
-        (d.threeJsObject[viewport.id]
+        ((d.convertedObject[viewport.id] as THREE.Mesh)
           .material as THREE.Material).clipShadows = true;
       }
     });
