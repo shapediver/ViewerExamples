@@ -11,6 +11,12 @@
  * @param head 
  */
 export const addHeaderContent = (document: Document, head: HTMLHeadElement) => {
+    const plausibleScript = document.createElement('script') as HTMLScriptElement;
+    plausibleScript.defer = true;
+    plausibleScript.setAttribute('data-domain', 'viewer.shapediver.com');
+    plausibleScript.src = 'https://viewer.shapediver.com/js/script.outbound-links.tagged-events.js';
+    head.appendChild(plausibleScript);
+
     const headerLink = document.createElement('link');
     headerLink.rel = 'stylesheet';
     headerLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css';
@@ -82,7 +88,7 @@ const createFormSubmit = (document: Document, id: string, parameters: string): H
 export const createButtonSpan = (document: Document, id: string, text: string, url: string) => {
     const span = document.createElement('span');
     span.id = id;
-    span.className = 'material-symbols-outlined button';
+    span.className = `material-symbols-outlined button plausible-event-name=${id}`;
     span.innerHTML = text;
     if(url.startsWith('window.open') || url.startsWith('function')) {
         span.setAttribute('onclick', url);
