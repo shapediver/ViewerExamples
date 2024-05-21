@@ -52,7 +52,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             // create a link to the file
             const a = document.createElement("a");
             a.textContent = (folder[f].name as string).replace(/-/g, ' ').replace(/_/g, ' ');
-            a.style.textTransform = 'capitalize';
+            a.classList.add('a-example-link');
             a.href = folder[f].href as string;
             div.appendChild(a);
 
@@ -83,7 +83,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
 
                 const description = document.createElement('p');
                 description.textContent = folder[f].description as string;
-                description.style.fontSize = 'medium';
+                description.classList.add('description');
                 newDiv.appendChild(description);
 
                 li.appendChild(newDiv);
@@ -101,8 +101,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             const markdownData = markdownFiles.find((file) => file.path === currentPath);
 
             const div = document.createElement('div');
-            div.style.display = 'flex';
-            div.style.alignItems = 'center';
+            div.classList.add('div-li');
             li.appendChild(div);
 
             let sectionName: string | undefined;
@@ -110,21 +109,18 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             if (markdownData) {
                 const markdownElement = document.createElement('div');
                 markdownElement.innerHTML = markdownData.markdown;
-                console.log(markdownData.markdown)
 
                 // get first h3 element
                 const h3 = markdownElement.querySelector('h3');
                 if (h3) {
                     sectionName = h3.textContent?.replace(/-/g, ' ').replace(/_/g, ' ').toLowerCase() as string;
                     h3.textContent = sectionName;
-                    h3.style.textTransform = 'capitalize';
                 }
 
                 if (markdownData.markdown.includes('<!-- collapse -->'))
                     collapse = true;
 
-                markdownElement.style.fontSize = 'medium';
-                markdownElement.style.fontWeight = 'normal';
+                markdownElement.classList.add('markdown-element');
                 div.appendChild(markdownElement);
             }
 
@@ -132,9 +128,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
                 const paragraphElement = document.createElement('p');
                 sectionName = f.replace(/-/g, ' ').replace(/_/g, ' ');
                 paragraphElement.textContent = sectionName;
-                paragraphElement.style.textTransform = 'capitalize';
-                paragraphElement.style.marginTop = '1rem';
-                paragraphElement.style.marginBottom = '0.1rem';
+                paragraphElement.classList.add('paragraph-element');
                 div.prepend(paragraphElement);
             }
 
@@ -144,13 +138,12 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             if (collapse) {
                 // add arrow icon
                 const span = document.createElement('span');
-                span.className = 'material-symbols-outlined button';
+                span.className = 'material-symbols-outlined button collapse-span';
                 span.textContent = 'expand_more';
-                span.style.marginTop = '1rem';
                 div.prepend(span);
 
                 div.style.cursor = 'pointer';
-                div.style.transform = 'translate(-18px, 0)';
+                li.classList.add('collapse-li');
                 div.onclick = () => {
                     const ul = li.querySelector('ul');
                     if (ul)
@@ -179,9 +172,12 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
     // order the list
     const items = Array.from(parent.children);
     items.sort((a, b) => {
-        if (a.className === b.className)
+        const aMainClass = a.className.split(" ")[0];
+        const bMainClass = b.className.split(" ")[0];
+
+        if (aMainClass === bMainClass)
             return order.indexOf(a.id) - order.indexOf(b.id);
-        return a.className === 'folder' ? 1 : -1;
+        return aMainClass === 'folder' ? 1 : -1;
     });
     items.forEach((item) => parent.appendChild(item));
 }
@@ -208,32 +204,25 @@ export const createContentSection = (parent: HTMLDivElement, folderStructure: Fo
 export const createTopSection = (parent: HTMLDivElement) => {
     // create the header div
     const titleDiv = document.createElement('div');
-    titleDiv.style.display = 'flex';
-    titleDiv.style.alignItems = 'center';
-    titleDiv.style.paddingBottom = '2rem';
+    titleDiv.classList.add('title-container');
     parent.appendChild(titleDiv);
 
     // create the logo
     const logo = document.createElement('img');
     logo.src = 'https://viewer.shapediver.com/v3/graphics/logo.png';
-    logo.style.height = '3rem';
-    logo.style.paddingRight = '1rem';
+    logo.classList.add('logo');
     titleDiv.appendChild(logo);
 
     // create the header
-    const header = document.createElement('h1');
-    header.innerText = 'ShapeDiver Viewer Examples';
-    header.style.fontSize = 'xx-large';
-    header.style.fontWeight = 'bold';
-    header.style.textAlign = 'center';
-    header.style.margin = '0';
+    const title = document.createElement('h1');
+    title.innerText = 'ShapeDiver Viewer Examples';
+    title.classList.add('title');
 
-    titleDiv.appendChild(header);
+    titleDiv.appendChild(title);
 
     // create the main markdown element
     const markdownElement = document.createElement('div');
     markdownElement.className = 'main-markdown';
     markdownElement.innerHTML = markdownFiles.find((file) => file.path === 'examples/')!.markdown;
-    markdownElement.style.fontSize = 'large';
     parent.appendChild(markdownElement);
 }

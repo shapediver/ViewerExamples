@@ -7,17 +7,53 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-        .main-markdown a {
-            color: #00fff7
-        }
-
         a {
             color: #be47fd
         }
 
         h3 {
-            margin-top: 1rem !important;
             margin-bottom: 0.1rem;
+            text-transform: capitalize;
+        }
+
+        li.collapse-li {
+            padding-left: 1rem;
+        }
+
+        li.folder {
+            border-radius: 1rem;
+            padding: 1rem;
+            background: #E0EEFF;
+            margin-top: 1rem;
+            transform: translate(-2rem, 0);
+        }
+
+        li.folder:not(ul li ul li) {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            background: aliceblue;
+            margin-bottom: 1rem;            
+            transform: translate(0, 0);
+        }
+
+        p {
+            margin: 0 0 0.5em;
+        }
+
+        ul {
+            font-size: large;
+            list-style-type: disc;
+            padding-top: 1.5rem;
+            padding-inline-start: 3rem;
+        }
+
+        ul:not(ul ul) {
+            padding-top: 0;
+            padding-inline-start: 0;
+        }
+
+        .a-example-link {
+            text-transform: capitalize;
         }
 
         .button {
@@ -31,25 +67,24 @@
             align-items: center;
         }
 
-        ul {
-            font-size: large;
-            list-style-type: disc;
-            padding-top: 0.5rem;
-            padding-inline-start: 60px;
+        .collapse-span {
+            margin-top: 0.25rem;
+            padding-right: 0.5rem;
+            padding-left: 0;
         }
 
-        ul:not(ul ul) {
-            padding-top: 0rem;
-            padding-inline-start: 0px;
+        .content {
+            background-color: white;
+            padding: 1.5rem calc(10% + 2rem) 1.5rem 10%;
         }
 
-        .folder {
-            font-weight: bold;
-            font-size: large;
-            list-style-type: none;
-            color: #000;
-            transform: translate(-20px, 0);
-            line-height: 0;
+        .description {
+            font-size: medium;
+        }
+
+        .div-li {
+            display: flex;
+            align-items: flex-start;
         }
 
         .file {
@@ -60,35 +95,61 @@
             color: #000;
         }
 
+        .folder {
+            font-weight: bold;
+            font-size: large;
+            list-style-type: none;
+            color: #000;
+            line-height: 0;
+        }
+
+        .logo {
+            height: 3rem;
+            padding-right: 1rem;
+        }
+
         .main {
             overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
 
-        .top {
-            background-color: rgb(3, 5, 49);
-            color: #fff;
-
-            padding-left: 10%;
-            padding-right: 10%;
-            padding-top: 4rem;
-            padding-bottom: 5rem;
+        .main-markdown {
+            font-size: large;
         }
 
-        .headerDiv {
+        .main-markdown a {
+            color: #00fff7;
+        }
+
+        .markdown-element {
+            font-size: medium;
+            font-weight: normal;
+        }
+
+        .paragraph-element {
+            text-transform: capitalize;
+            margin-top: 1rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .title {
+            font-size: xx-large;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+        }
+
+        .title-container {
             display: flex;
             align-items: center;
             padding-bottom: 2rem;
         }
 
-        .content {
-            background-color: #fff;
-
-            padding-left: calc(10% + 20px);
-            padding-right: 10%;
-            padding-bottom: 5rem;
-            padding-top: 3.5rem;
+        .top {
+            background-color: rgb(3, 5, 49);
+            color: #fff;
+            padding: 4rem 10% 5rem;
         }
     </style>
 </head>

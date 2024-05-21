@@ -6,15 +6,14 @@
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
   "scripts": {
-    "start": "npm run tsc-check && npm run parcel-build-local && npm run after-build && npm run parcel-open",
+    "start": "npm run tsc-check && npm run before-build && parcel build index.html 'examples/**/*.html' && npm run after-build && npm run parcel-open",
+    "build": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run after-build",
     "tsc-check": "tsc --noEmit",
     "before-build": "rm -rf ./dist && ts-node ./scripts/beforeBuild.ts",
     "after-build": "ts-node ./scripts/afterBuild.ts",
-    "parcel-build-prod": "npm run tsc-check && npm run before-build && find examples -name 'example.html' -exec sh -c 'mkdir -p \"dist/$(dirname \"{}\")\" && parcel build \"{}\" --out-dir \"dist/$(dirname \"{}\")\" --public-url ./' \\; && parcel build index.html --public-url ./ && npm run after-build",
     "parcel-build-prod-main": "parcel build index.html --public-url ./",
     "parcel-build-local": "parcel build index.html",
-    "parcel-open": "parcel index.html --open --port 8080",
-    "build-watch": "npm run tsc-check && npm run before-build && parcel watch index.html 'examples/**/*.html' --no-cache"
+    "parcel-open": "parcel index.html --open --port 8080"
   },
   "keywords": [],
   "author": "",
