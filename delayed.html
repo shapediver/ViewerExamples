@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Delayed Loading Page</title>
+    <script defer data-domain="viewer.shapediver.com" src="https://viewer.shapediver.com/js/script.outbound-links.tagged-events.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script>
+        function openLink() {
+            const link = new URLSearchParams(window.location.search).get('link');
+
+            console.log(link)
+            if (link) {
+                window.location.href = link;
+            } else {
+                alert('No link provided in query parameter!');
+            }
+        }
+    </script>
+</head>
+
+<body style="display: flex; justify-content: center; align-items: center; background: #393a45FF">
+    <div style="text-align: center; cursor: pointer; color: #fff;"  onclick="openLink()">
+        <span style="font-size: 7.5rem;" class="material-symbols-outlined"> play_circle </span>
+        <p style="font-size: 1.5rem; font-weight: bold;">Click to Run</p>
+    </div>
+</body>
+
+</html>
