@@ -43,11 +43,11 @@ export const addHeaderContent = (document: Document, head: HTMLHeadElement) => {
     head.appendChild(codeSandBoxButton);
 
     const buttonStyleSheet = document.createElement('style');
-    buttonStyleSheet.innerHTML = '.button { font-size: 4em; cursor: pointer; }';
+    buttonStyleSheet.innerHTML = '.button { font-size: 1.25em; cursor: pointer; padding-right: 0.5rem; }';
     head.appendChild(buttonStyleSheet);
 
     const buttonContainerStyleSheet = document.createElement('style');
-    buttonContainerStyleSheet.innerHTML = '.button-container { position: absolute; margin: 8px; z-index: 1; mix-blend-mode: difference; filter: invert(1) grayscale(100%); }';
+    buttonContainerStyleSheet.innerHTML = '.button-container { position: absolute; margin: 8px; z-index: 1; }';
     head.appendChild(buttonContainerStyleSheet);
 }
 
@@ -76,29 +76,59 @@ const createFormSubmit = (document: Document, id: string, parameters: string): H
     return form;
 }
 
-/**
- * Creates a button span element
- * 
- * @param document 
- * @param id 
- * @param text 
- * @param url 
- * @returns 
- */
+const capitalizeFirstLetter = (string: string) => {
+    if (string.length === 0) {
+        return string; // Return empty string if input is empty
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const createButtonSpan = (document: Document, id: string, name: string, text: string, url: string) => {
-    const span = document.createElement('span');
-    span.id = id;
-    span.className = `material-symbols-outlined button plausible-event-name=${id} plausible-event-example=${name}`;
-    span.innerHTML = text;
+    const a = document.createElement('a');
+
+    a.style.background = 'white';
+    a.style.border = 'lightgrey solid 0.1rem';
+    a.style.borderRadius = '2rem';
+    a.style.padding = '0.5rem 1rem';
+    a.style.display = 'flex';
+    a.style.justifyContent = 'space-between';
+    a.style.boxShadow = 'rgba(0, 0, 0, 0.05) 0px 1px 3px 0px, rgba(0, 0, 0, 0.05) 0px 10px 15px -5px, rgba(0, 0, 0, 0.04) 0px 7px 7px -5px';
+    a.style.color = 'black';
+    a.style.margin = '0.5rem';
+    a.style.cursor = 'pointer';
+
+    a.id = id;
+    a.className = `plausible-event-name=${id} plausible-event-example=${name}`;
     if(url.startsWith('window.open') || url.startsWith('function')) {
-        span.setAttribute('onclick', url);
+        a.setAttribute('onclick', url);
     } else {
         const formSubmit = createFormSubmit(document, id, url);
-        span.setAttribute('onclick', `document.getElementById('form_${id}').click()`);
-        span.appendChild(formSubmit);
+        a.setAttribute('onclick', `document.getElementById('form_${id}').click()`);
+        a.appendChild(formSubmit);
     }
-    return span;
+
+    const innerSpan = document.createElement('span');
+    innerSpan.style.display = 'flex';
+    innerSpan.style.alignItems = 'self-start';
+    innerSpan.style.fontSize = 'large';
+    innerSpan.style.fontWeight = 'bold';
+    innerSpan.style.justifyContent = 'space-between';
+    a.appendChild(innerSpan);
+
+    const span = document.createElement('span');
+    span.className = `material-symbols-outlined button`;
+    span.innerHTML = text;
+    innerSpan.appendChild(span);
+
+    const p = document.createElement('p');
+    p.style.margin = '0';
+    p.style.fontSize = 'medium';
+    p.innerHTML = capitalizeFirstLetter(id.replace('-button', ''));
+    innerSpan.appendChild(p);
+
+    return a;
 }
+
 
 /**
  * Creates the corner containers for the buttons
@@ -111,29 +141,33 @@ export const createCornerContainers = (document: Document, body: HTMLHeadElement
     const topLeftDiv = document.createElement('div');
     topLeftDiv.id = 'topLeftDiv';
     topLeftDiv.className = "button-container";
-    topLeftDiv.style.top = '0%';
-    topLeftDiv.style.left = '0%';
+    topLeftDiv.style.top = '1.5rem';
+    topLeftDiv.style.left = '1.5rem';
+    topLeftDiv.style.display = 'flex';
     body.appendChild(topLeftDiv);
 
     const topRightDiv = document.createElement('div');
     topRightDiv.id = 'topRightDiv';
     topRightDiv.className = "button-container";
-    topRightDiv.style.top = '0%';
-    topRightDiv.style.right = '0%';
+    topRightDiv.style.top = '1.5rem';
+    topRightDiv.style.right = '1.5rem';
+    topRightDiv.style.display = 'flex';
     body.appendChild(topRightDiv);
     
     const bottomLeftDiv = document.createElement('div');
     bottomLeftDiv.id = 'bottomLeftDiv';
     bottomLeftDiv.className = "button-container";
-    bottomLeftDiv.style.bottom = '0%';
-    bottomLeftDiv.style.left = '0%';
+    bottomLeftDiv.style.bottom = '1.5rem';
+    bottomLeftDiv.style.left = '1.5rem';
+    bottomLeftDiv.style.display = 'flex';
     body.appendChild(bottomLeftDiv);
 
     const bottomRightDiv = document.createElement('div');
     bottomRightDiv.id = 'bottomRightDiv';
     bottomRightDiv.className = "button-container";
-    bottomRightDiv.style.bottom = '0%';
-    bottomRightDiv.style.right = '0%';
+    bottomRightDiv.style.bottom = '1.5rem';
+    bottomRightDiv.style.right = '1.5rem';
+    bottomRightDiv.style.display = 'flex';
     body.appendChild(bottomRightDiv);
 
     return { topLeftDiv, topRightDiv, bottomLeftDiv, bottomRightDiv };

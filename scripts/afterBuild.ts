@@ -52,7 +52,7 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 const name = parts[parts.length - 2];
 
                 // create the buttons
-                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', name, `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
+                const homeButtonSpan = createButtonSpan(document, 'home-button', name, 'home', `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
                 bottomLeftDiv.appendChild(homeButtonSpan);
 
                 const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', name, 'code', `window.open("${createGithubUrl(directory)}", '_blank')`);
@@ -62,7 +62,7 @@ const getHTMLFilesFromFolder = (dir: string) => {
 
                 // check if there is a README.md file in the directory
                 if (fs.existsSync(directory + '/README.md')) {
-                    const descriptionButtonSpan = createButtonSpan(document, 'description-button', 'description', name, `function toggleDiv() { const div = document.getElementById('readmeDiv'); if (div.style.display === 'none') { div.style.display = 'block'; } else { div.style.display = 'none'; } } toggleDiv();`);
+                    const descriptionButtonSpan = createButtonSpan(document, 'description-button', name, 'description', `function toggleDiv() { const div = document.getElementById('readmeDiv'); if (div.style.display === 'none') { div.style.display = 'block'; } else { div.style.display = 'none'; } } toggleDiv();`);
                     topLeftDiv.appendChild(descriptionButtonSpan);
 
                     // read the README.md file
