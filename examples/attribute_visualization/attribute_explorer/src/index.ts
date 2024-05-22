@@ -120,7 +120,8 @@ addListener(EVENTTYPE.INTERACTION.SELECT_ON, (e) => {
     ticket:
       "9b524671657560c37705b9ef666136631340606c9ade55c46a66fbbfedfdd4ec5336f9f6f2c799058883ded1e7440377885eaee877d1fb9ab3599e491d7f72ca84a255560f2ce88ac58d0cfd7e5648343055e8dea5b45e521c4f55e15020bf21b3d3c79140a024-58588a6277fd7604fff0f969dda37a1f",
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
-    id: "mySession"
+    id: "mySession",
+    loadSdtf: true
   });
 
   attributeVisualizationEngine = new AttributeVisualizationEngine(viewport);

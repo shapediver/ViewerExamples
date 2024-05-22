@@ -19,7 +19,8 @@ import {
     ticket:
       "e940c3c532b05f84042863d88f25c84483c55726e434d6eae3a29cd76b8861261c6c44d841a96f5bf06bf7fe4f7a646d895951de6e3a431cbd4a7a8b56bd1ea173178365a2acaf6a7fe153ebcbcb9d9171e491b01ebe8bbb7f7d23ce64fdb98fc012cef915ff82-af6db24cc6a2116352f7eb64ab45ed2d",
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
-    id: "mySession"
+    id: "mySession",
+    loadSdtf: true
   });
 
   const attributeDataCollection: {

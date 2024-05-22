@@ -14,7 +14,8 @@ import { AttributeVisualizationEngine } from "@shapediver/viewer.features.attrib
     ticket:
       "0becbe99aa4c0ab77018d695c42bb9fcf17f7e5e67cd277c24fa8868fee85d910f50fe2be0af3baddb431b33dedb548e22aabe743074a2598f36eb70fd2876c727ec5ec456978be5546081be8d6443da1d66d1269d2236e362ace67fe9aa0a47ad11531b222960-46b2ea05fcd73affa12aeb88d0f25ab1",
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
-    id: "mySession"
+    id: "mySession",
+    loadSdtf: true
   });
   viewport.type = RENDERER_TYPE.ATTRIBUTES;
 
