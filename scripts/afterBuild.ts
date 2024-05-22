@@ -48,18 +48,21 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 // create the button containers
                 const { topLeftDiv, topRightDiv, bottomLeftDiv, bottomRightDiv } = createCornerContainers(document, body);
 
+                // get second to last part
+                const name = parts[parts.length - 2];
+
                 // create the buttons
-                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
+                const homeButtonSpan = createButtonSpan(document, 'home-button', 'home', name, `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
                 bottomLeftDiv.appendChild(homeButtonSpan);
 
-                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', 'code', `window.open("${createGithubUrl(directory)}", '_blank')`);
-                const codeSandBoxButtonSpan = createButtonSpan(document, 'codeSandBox-button', 'deployed_code', createCodeSandBoxParameters(directory, dependencies, packageJson));
+                const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', name, 'code', `window.open("${createGithubUrl(directory)}", '_blank')`);
+                const codeSandBoxButtonSpan = createButtonSpan(document, 'codeSandBox-button', name, 'deployed_code', createCodeSandBoxParameters(directory, dependencies, packageJson));
                 bottomRightDiv.appendChild(codeSandBoxButtonSpan);
                 bottomRightDiv.appendChild(gitHubButtonSpan);
 
                 // check if there is a README.md file in the directory
                 if (fs.existsSync(directory + '/README.md')) {
-                    const descriptionButtonSpan = createButtonSpan(document, 'description-button', 'description', `function toggleDiv() { const div = document.getElementById('readmeDiv'); if (div.style.display === 'none') { div.style.display = 'block'; } else { div.style.display = 'none'; } } toggleDiv();`);
+                    const descriptionButtonSpan = createButtonSpan(document, 'description-button', 'description', name, `function toggleDiv() { const div = document.getElementById('readmeDiv'); if (div.style.display === 'none') { div.style.display = 'block'; } else { div.style.display = 'none'; } } toggleDiv();`);
                     topLeftDiv.appendChild(descriptionButtonSpan);
 
                     // read the README.md file

@@ -85,10 +85,10 @@ const createFormSubmit = (document: Document, id: string, parameters: string): H
  * @param url 
  * @returns 
  */
-export const createButtonSpan = (document: Document, id: string, text: string, url: string) => {
+export const createButtonSpan = (document: Document, id: string, name: string, text: string, url: string) => {
     const span = document.createElement('span');
     span.id = id;
-    span.className = `material-symbols-outlined button plausible-event-name=${id}`;
+    span.className = `material-symbols-outlined button plausible-event-name=${id} plausible-event-example=${name}`;
     span.innerHTML = text;
     if(url.startsWith('window.open') || url.startsWith('function')) {
         span.setAttribute('onclick', url);

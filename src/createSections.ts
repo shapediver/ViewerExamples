@@ -59,7 +59,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             // create an icon for the code sandbox link
             const codeSandBoxSpan = document.createElement("span");
             codeSandBoxSpan.id = 'codeSandBoxSpan-button';
-            codeSandBoxSpan.className = "material-symbols-outlined button";
+            codeSandBoxSpan.className = `material-symbols-outlined button plausible-event-name=codeSandBox-button plausible-event-example=${folder[f].name}`;
             codeSandBoxSpan.textContent = 'deployed_code';
             const id = createId(folder[f].codeSandBox as string);
             const formSubmit = createFormSubmit(id, folder[f].codeSandBox as string);
@@ -70,7 +70,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             // create an icon for the github link
             const gitHubSpan = document.createElement("span");
             gitHubSpan.id = 'gitHub-button';
-            gitHubSpan.className = "material-symbols-outlined button";
+            gitHubSpan.className = `material-symbols-outlined button plausible-event-name=gitHub-button plausible-event-example=${folder[f].name}`;
             gitHubSpan.innerHTML = 'code';
             gitHubSpan.setAttribute('onclick', `window.open('${folder[f].github}', '_blank')`);
             div.appendChild(gitHubSpan);
