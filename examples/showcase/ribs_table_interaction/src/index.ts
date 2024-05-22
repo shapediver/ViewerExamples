@@ -63,13 +63,11 @@ import { vec3 } from "gl-matrix";
 
   let sphereNodes: ITreeNode[] = [];
   // callback to assign interaction data
-  const cb = () => {
-    // retrieve the node for the sphere output
-    const sphereOutputNode = sphereOutput.node;
-    if (!sphereOutputNode) return;
+  const cb = (newNode?: ITreeNode) => {
+    if(!newNode) return;
 
     // retrieve all sphere nodes in this hierarchy setup
-    sphereNodes = sphereOutputNode.children;
+    sphereNodes = newNode.children;
 
     // assign the interaction data
     sphereNodes.forEach((n) => {
@@ -86,7 +84,7 @@ import { vec3 } from "gl-matrix";
   // assign this callback to be triggered whenever output updates happen
   sphereOutput.updateCallback = cb;
   // and call it once at the start
-  cb();
+  cb(sphereOutput.node);
 
   // whenever the dragging stops create the input for the parameter und customize the session
   addListener(EVENTTYPE.INTERACTION.DRAG_END, async () => {
