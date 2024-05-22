@@ -98,7 +98,9 @@ export const createButtonSpan = (document: Document, id: string, name: string, t
     a.style.cursor = 'pointer';
 
     a.id = id;
-    a.className = `plausible-event-name=${id} plausible-event-example=${name}`;
+    if(!url.startsWith('function'))
+        a.className = `plausible-event-name=${id} plausible-event-example=${name}`;
+    
     if(url.startsWith('window.open') || url.startsWith('function')) {
         a.setAttribute('onclick', url);
     } else {

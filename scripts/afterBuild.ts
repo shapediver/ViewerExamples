@@ -52,7 +52,7 @@ const getHTMLFilesFromFolder = (dir: string) => {
                 const name = parts[parts.length - 2];
 
                 // create the buttons
-                const homeButtonSpan = createButtonSpan(document, 'home-button', name, 'home', `window.open(window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html', '_self')`);
+                const homeButtonSpan = createButtonSpan(document, 'home-button', name, 'home', `function goHome() { window.location.href = window.location.href.substring(0, window.location.href.lastIndexOf('/examples/')) + '/index.html';} goHome();`);
                 bottomLeftDiv.appendChild(homeButtonSpan);
 
                 const gitHubButtonSpan = createButtonSpan(document, 'gitHub-button', name, 'code', `window.open("${createGithubUrl(directory)}", '_blank')`);
