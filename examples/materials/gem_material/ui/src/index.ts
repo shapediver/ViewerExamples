@@ -1,5 +1,4 @@
 import * as SDV from "@shapediver/viewer";
-import { MaterialEngine } from "@shapediver/viewer";
 import {
   gems,
   IGemMaterialProperties,
@@ -23,7 +22,7 @@ const menuRight = <HTMLDivElement>document.getElementById("menu-right");
 let session: SDV.ISessionApi;
 let viewport: SDV.IViewportApi;
 
-const materialEngine: MaterialEngine = MaterialEngine.instance;
+const materialEngine: SDV.MaterialEngine = SDV.MaterialEngine.instance;
 
 export const updateGemMaterial = async (properties: IGemMaterialProperties) => {
   const gemMaterialProperties: SDV.IMaterialGemDataProperties = {};
