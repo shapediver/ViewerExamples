@@ -37,33 +37,35 @@ import { createUi } from "@shapediver/viewer.shared.demo-helper";
     document.body.appendChild(div);
     createUi(session, div)
 
-        // JavaScript for making the div movable
-        let offsetX = 0, offsetY = 0, isDragging = false;
-    
-        // Function to start dragging
-        function startDragging(e: PointerEvent) {
-            isDragging = true;
-            offsetX = e.clientX - div.getBoundingClientRect().left;
-            offsetY = e.clientY - div.getBoundingClientRect().top;
+    // JavaScript for making the div movable
+    let offsetX = 0, offsetY = 0, isDragging = false;
+
+    // Function to start dragging
+    function startDragging(e: PointerEvent) {
+        if(e.target instanceof HTMLInputElement) return;
+
+        isDragging = true;
+        offsetX = e.clientX - div.getBoundingClientRect().left;
+        offsetY = e.clientY - div.getBoundingClientRect().top;
+    }
+
+    // Function to stop dragging
+    function stopDragging() {
+        isDragging = false;
+    }
+
+    // Function to move the div
+    function dragDiv(e: PointerEvent) {
+        if (isDragging) {
+            div.style.left = (e.clientX - offsetX) + 'px';
+            div.style.top = (e.clientY - offsetY) + 'px';
         }
-    
-        // Function to stop dragging
-        function stopDragging() {
-            isDragging = false;
-        }
-    
-        // Function to move the div
-        function dragDiv(e: PointerEvent) {
-            if (isDragging) {
-                div.style.left = (e.clientX - offsetX) + 'px';
-                div.style.top = (e.clientY - offsetY) + 'px';
-            }
-        }
-    
-        // Event listeners
-        div.addEventListener('pointerdown', startDragging);
-        document.addEventListener('pointerup', stopDragging);
-        document.addEventListener('pointermove', dragDiv);
+    }
+
+    // Event listeners
+    div.addEventListener('pointerdown', startDragging);
+    document.addEventListener('pointerup', stopDragging);
+    document.addEventListener('pointermove', dragDiv);
 
     // create a dropdown for each viewport to select the camera
     for (let i = 0; i < 4; i++) {
