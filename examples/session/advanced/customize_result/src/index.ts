@@ -14,5 +14,5 @@ import * as SDV from "@shapediver/viewer";
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com"
   });
 
-  console.log(session.customizeResult({ Length: "9" }));
+  alert(`Customize Result: ${JSON.stringify(session.customizeResult({ Length: "9" }))}`);
 })();

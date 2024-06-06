@@ -35,6 +35,7 @@ import {
     console.log(node);
     const output = session.outputs[node.name];
     console.log(output);
+    alert(`Output: ${output.name}`);
   });
 
   // create the interactionEngine and provide it the viewport object

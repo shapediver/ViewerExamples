@@ -24,15 +24,17 @@ import { mat4, vec3 } from "gl-matrix";
     id: "mySession"
   });
 
-  // traverse all decendents of a node and apply the callback
+  // traverse all descendants of a node and apply the callback
   const traverseCallback = (n: ITreeNode) => {
     console.log(n);
+    alert(`Node: ${n.name}`);
   };
   session.node.traverse(traverseCallback);
 
-  // traverse all data items of this node and its decendents and apply the callback
+  // traverse all data items of this node and its descendants and apply the callback
   const traverseDataCallback = (d: ITreeNodeData) => {
     console.log(d);
+    alert(`Data: ${JSON.stringify(d)}`);
   };
   session.node.traverseData(traverseDataCallback);
 })();

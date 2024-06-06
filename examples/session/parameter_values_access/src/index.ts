@@ -14,9 +14,9 @@ import * as SDV from "@shapediver/viewer";
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com"
   });
 
-  console.log(
-    session.parameterValues,
-    session.parameterSessionValues,
-    session.parameterDefaultValues
-  );
+  alert(`
+    Parameter Values: ${JSON.stringify(session.parameterValues)}
+    Parameter Session Values: ${JSON.stringify(session.parameterSessionValues)}
+    Parameter Default Values: ${JSON.stringify(session.parameterDefaultValues)}
+  `)
 })();

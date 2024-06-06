@@ -1,6 +1,41 @@
 
 
-import { createViewport, createSession } from "@shapediver/viewer";
+import { createViewport, createSession, ShapeDiverResponseExport } from "@shapediver/viewer";
+
+/**
+ * Fetch the file from the url and download it with the given filename.
+ * If a token is provided, it is used for authorization.
+ *
+ * @param url
+ * @param filename
+ * @param token
+ */
+const fetchFileWithToken = async (
+  url: string,
+  filename: string,
+  token: string | null = null
+) => {
+  try {
+    // fetch with the authorization token if provided
+    const res = await fetch(url, {
+      ...(token ? { headers: { Authorization: token } } : {})
+    });
+
+    // get the blob
+    const blob = await res.blob();
+
+    // download it
+    const modelFile = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.href = modelFile;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 (async () => {
   // create a viewport
@@ -18,8 +53,7 @@ import { createViewport, createSession } from "@shapediver/viewer";
   });
 
   // request the exports
-  console.log(
-    await session.requestExports({
+  const result = await session.requestExports({
       exports: [
         session.getExportByName("Image Export")[0].id,
         session.getExportByName("Obj Export")[0].id
@@ -27,6 +61,17 @@ import { createViewport, createSession } from "@shapediver/viewer";
       parameters: {
         Length: 2
       }
-    })
-  );
+  });
+
+  for (const exportId in result.exports) {
+    const exportResult = result.exports[exportId] as ShapeDiverResponseExport;
+
+    if (exportResult.content && exportResult.content[0]) {
+      console.log(exportResult);
+      const filename = `${exportResult.filename}.${exportResult.content[0].format}`;
+      fetchFileWithToken(exportResult.content[0].href, filename, session.jwtToken);
+    } else {
+      alert(exportResult.msg);
+    }
+  }
 })();

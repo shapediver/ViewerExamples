@@ -2,6 +2,41 @@
 
 import { createViewport, createSession } from "@shapediver/viewer";
 
+/**
+ * Fetch the file from the url and download it with the given filename.
+ * If a token is provided, it is used for authorization.
+ *
+ * @param url
+ * @param filename
+ * @param token
+ */
+const fetchFileWithToken = async (
+  url: string,
+  filename: string,
+  token: string | null = null
+) => {
+  try {
+    // fetch with the authorization token if provided
+    const res = await fetch(url, {
+      ...(token ? { headers: { Authorization: token } } : {})
+    });
+
+    // get the blob
+    const blob = await res.blob();
+
+    // download it
+    const modelFile = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.href = modelFile;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -21,5 +56,12 @@ import { createViewport, createSession } from "@shapediver/viewer";
   const exportObject = session.getExportByName("Export3DModel")[0];
 
   // request the export
-  console.log(await exportObject.request());
+  const result = await exportObject.request();
+  if (result.content && result.content[0]) {
+    console.log(result);
+    const filename = `${result.filename}.${result.content[0].format}`;
+    fetchFileWithToken(result.content[0].href, filename, session.jwtToken);
+  } else {
+    alert(result.msg);
+  }
 })();

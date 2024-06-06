@@ -57,5 +57,5 @@ import {
       getItemData(node.children[i]);
   };
   getItemData(session.node);
-  console.log(attributeDataCollection);
+  alert(`Attribute Data: ${attributeDataCollection}`);
 })();

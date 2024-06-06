@@ -19,6 +19,8 @@ import * as SDV from "@shapediver/viewer";
       [Object.values(session.outputs)[0].id]: Object.values(session.outputs)[0]
         .version,
       [Object.values(session.outputs)[1].id]: "invalid version" // returns undefined for this version
+    }).then(result => {
+      alert(`Load Cached Outputs: ${JSON.stringify(result)}`);
     })
   );
 })();

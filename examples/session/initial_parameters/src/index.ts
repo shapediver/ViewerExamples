@@ -17,5 +17,5 @@ import * as SDV from "@shapediver/viewer";
     }
   });
 
-  console.log(session.getParameterByName("density")[0].value);
+  alert(`Parameter Value: ${session.getParameterByName("density")[0].value}`);
 })();

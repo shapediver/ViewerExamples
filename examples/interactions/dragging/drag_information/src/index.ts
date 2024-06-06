@@ -64,7 +64,6 @@ import {
 
   addListener(EVENTTYPE.INTERACTION.DRAG_END, (e) => {
     const interactionEvent = e as IDragEvent;
-    console.log(interactionEvent.dragAnchor);
-    console.log(interactionEvent.dragConstraint);
+    alert(`DRAG_END: \ndragAnchor: ${JSON.stringify(interactionEvent.dragAnchor)}\ndragConstraint: ${JSON.stringify(interactionEvent.dragConstraint)}`);
   });
 })();

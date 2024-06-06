@@ -1,0 +1,1 @@
+Trigger a screenshot, provide it as an input to a file parameter and then export it.

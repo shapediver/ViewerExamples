@@ -108,7 +108,7 @@ addListener(EVENTTYPE.INTERACTION.SELECT_ON, (e) => {
   /**
    * Here is the data that you need!
    */
-  console.log(itemData.attributes);
+  alert(`Attribute data: ${JSON.stringify(itemData.attributes)}`);
 });
 
 (async () => {

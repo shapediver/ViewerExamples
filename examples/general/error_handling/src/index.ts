@@ -21,7 +21,7 @@ import * as SDV from "@shapediver/viewer";
         SDV.ShapeDiverGeometryBackendResponseErrorType.TICKET_VALIDATION_ERROR
     ) {
       // catch a specific error, in this case, a ticket validation error
-      console.log("We have an error:", e);
+      alert(`We have an error: ${JSON.stringify(e)}`);
     }
   }
 })();

@@ -18,5 +18,5 @@ import { createViewport, createSession } from "@shapediver/viewer";
 
   // "getOutputByName" returns an array with all outputs that have the desired name
   const dataOutput = session.getOutputByName("NumberOfSeats")[0];
-  console.log("How many seats are there?", dataOutput.content![0].data);
+  alert(`How many seats are there? ${dataOutput.content![0].data}`);
 })();

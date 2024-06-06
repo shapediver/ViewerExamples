@@ -24,8 +24,11 @@ import {
 
   // create a listener that is called whenever the session has been customized
   const token = addListener(EVENTTYPE.SESSION.SESSION_CUSTOMIZED, (e) => {
-    console.log(e);
+    alert(`EVENTTYPE.SESSION.SESSION_CUSTOMIZED: ${JSON.stringify(e)}`);
   });
+
+  session.getParameterByName("Length")[0].value = 10;
+  await session.customize();
 
   // once you are done listening, remove the listener
   // removeListener(token)
