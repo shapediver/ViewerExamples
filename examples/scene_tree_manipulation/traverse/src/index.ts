@@ -9,6 +9,18 @@ import {
 } from "@shapediver/viewer";
 import { mat4, vec3 } from "gl-matrix";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -27,14 +39,14 @@ import { mat4, vec3 } from "gl-matrix";
   // traverse all descendants of a node and apply the callback
   const traverseCallback = (n: ITreeNode) => {
     console.log(n);
-    alert(`Node: ${n.name}`);
+    sendNotification("Node selected", `Node: ${n.name}`);
   };
   session.node.traverse(traverseCallback);
 
   // traverse all data items of this node and its descendants and apply the callback
   const traverseDataCallback = (d: ITreeNodeData) => {
     console.log(d);
-    alert(`Data: ${JSON.stringify(d)}`);
+    sendNotification("Data selected", `Data: ${JSON.stringify(d)}`);
   };
   session.node.traverseData(traverseDataCallback);
 })();

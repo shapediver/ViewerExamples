@@ -57,5 +57,17 @@ import {
       getItemData(node.children[i]);
   };
   getItemData(session.node);
-  alert(`Attribute Data: ${attributeDataCollection}`);
+
+  const sendNotification = (title: string, message: string) => {
+    if (Notification.permission === 'granted') {
+      new Notification(title, { body: message });
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          new Notification(title, { body: message });
+        }
+      });
+    }
+  };
+  sendNotification("Attribute Data", `Attribute Data: ${JSON.stringify(attributeDataCollection)}`);
 })();

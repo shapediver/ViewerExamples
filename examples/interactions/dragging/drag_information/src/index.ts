@@ -20,6 +20,18 @@ import {
   SelectManager
 } from "@shapediver/viewer.features.interaction";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -64,6 +76,6 @@ import {
 
   addListener(EVENTTYPE.INTERACTION.DRAG_END, (e) => {
     const interactionEvent = e as IDragEvent;
-    alert(`DRAG_END: \ndragAnchor: ${JSON.stringify(interactionEvent.dragAnchor)}\ndragConstraint: ${JSON.stringify(interactionEvent.dragConstraint)}`);
+    sendNotification("Drag end", (`DRAG_END: \ndragAnchor: ${JSON.stringify(interactionEvent.dragAnchor)}\ndragConstraint: ${JSON.stringify(interactionEvent.dragConstraint)}`));
   });
 })();

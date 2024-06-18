@@ -2,6 +2,18 @@ import * as SDV from "@shapediver/viewer";
 
 (<any>window).SDV = SDV;
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   let viewport = await SDV.createViewport({
     id: "myViewport",
@@ -17,5 +29,5 @@ import * as SDV from "@shapediver/viewer";
     }
   });
 
-  alert(`Parameter Value: ${session.getParameterByName("density")[0].value}`);
+  sendNotification("Initial Parameters", `Parameter Value: ${session.getParameterByName("density")[0].value}`);
 })();

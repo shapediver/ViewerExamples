@@ -2,6 +2,18 @@
 
 import { createViewport, createSession } from "@shapediver/viewer";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -18,5 +30,5 @@ import { createViewport, createSession } from "@shapediver/viewer";
 
   // "getOutputByName" returns an array with all outputs that have the desired name
   const dataOutput = session.getOutputByName("NumberOfSeats")[0];
-  alert(`How many seats are there? ${dataOutput.content![0].data}`);
+  sendNotification("Data Outputs", `How many seats are there? ${dataOutput.content![0].data}`);
 })();

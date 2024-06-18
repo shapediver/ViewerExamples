@@ -15,6 +15,18 @@ import {
   SelectManager
 } from "@shapediver/viewer.features.interaction";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -35,7 +47,7 @@ import {
     console.log(node);
     const output = session.outputs[node.name];
     console.log(output);
-    alert(`Output: ${output.name}`);
+    sendNotification("Output selected", `Output: ${output.name}`);
   });
 
   // create the interactionEngine and provide it the viewport object

@@ -85,6 +85,18 @@ activationBox.onclick = () => {
   }
 };
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 /**
  * Event for SELECT_OFF
  */
@@ -108,7 +120,7 @@ addListener(EVENTTYPE.INTERACTION.SELECT_ON, (e) => {
   /**
    * Here is the data that you need!
    */
-  alert(`Attribute data: ${JSON.stringify(itemData.attributes)}`);
+  sendNotification("Attribute selected", `Attribute data: ${JSON.stringify(itemData.attributes)}`);
 });
 
 (async () => {

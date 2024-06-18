@@ -2,10 +2,22 @@ import { createViewport, createSession } from "@shapediver/viewer";
 
 const viewportDiv = document.getElementById("viewportDiv");
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 const toggleFullscreen = () => {
   if (!document.fullscreenElement) {
     viewportDiv?.requestFullscreen().catch(err => {
-      alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      sendNotification("Error", `Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
     });
   } else {
     if (document.exitFullscreen) {

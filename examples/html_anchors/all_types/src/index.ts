@@ -11,6 +11,18 @@ import {
 } from "@shapediver/viewer";
 import { vec2 } from "gl-matrix";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 // function to create a HTMLElement at initialization
 const create = (properties: {
   anchor: HTMLElementAnchorData;
@@ -23,7 +35,7 @@ const create = (properties: {
   hotspotBtn.style.cursor = "pointer";
 
   properties.parent.appendChild(hotspotBtn);
-  hotspotBtn.onclick = () => alert(properties.anchor.data.clickMsg);
+  hotspotBtn.onclick = () => sendNotification('Button clicked', properties.anchor.data.clickMsg);
 };
 
 // the update function that is called on every render call

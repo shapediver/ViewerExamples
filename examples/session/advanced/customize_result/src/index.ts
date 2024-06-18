@@ -2,6 +2,18 @@ import * as SDV from "@shapediver/viewer";
 
 (<any>window).SDV = SDV;
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   const viewer = await SDV.createViewport({
     id: "myViewer",
@@ -14,5 +26,5 @@ import * as SDV from "@shapediver/viewer";
     modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com"
   });
 
-  alert(`Customize Result: ${JSON.stringify(session.customizeResult({ Length: "9" }))}`);
+  sendNotification("Customize Result", `Customize Result: ${JSON.stringify(session.customizeResult({ Length: "9" }))}`);
 })();

@@ -8,6 +8,18 @@ import {
   removeListener
 } from "@shapediver/viewer";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 (async () => {
   // create a viewport
   const viewport = await createViewport({
@@ -24,7 +36,7 @@ import {
 
   // create a listener that is called whenever the session has been customized
   const token = addListener(EVENTTYPE.SESSION.SESSION_CUSTOMIZED, (e) => {
-    alert(`EVENTTYPE.SESSION.SESSION_CUSTOMIZED: ${JSON.stringify(e)}`);
+    sendNotification("Session customized", `Session customized: ${JSON.stringify(e)}`);
   });
 
   session.getParameterByName("Length")[0].value = 10;

@@ -2,6 +2,18 @@
 
 import { createViewport, createSession, ShapeDiverResponseExport } from "@shapediver/viewer";
 
+const sendNotification = (title: string, message: string) => {
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body: message });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification(title, { body: message });
+      }
+    });
+  }
+};
+
 /**
  * Fetch the file from the url and download it with the given filename.
  * If a token is provided, it is used for authorization.
@@ -71,7 +83,7 @@ const fetchFileWithToken = async (
       const filename = `${exportResult.filename}.${exportResult.content[0].format}`;
       fetchFileWithToken(exportResult.content[0].href, filename, session.jwtToken);
     } else {
-      alert(exportResult.msg);
+      sendNotification("Export failed", exportResult.msg!);
     }
   }
 })();
