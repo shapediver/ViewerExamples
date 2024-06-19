@@ -1,0 +1,1 @@
+Restrict the drawing to a mesh.

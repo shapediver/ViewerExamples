@@ -1,0 +1,1 @@
+Create a line as an input for GH.
