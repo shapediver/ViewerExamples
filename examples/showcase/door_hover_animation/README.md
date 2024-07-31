@@ -1,0 +1,2 @@
+This showcase demonstrates how to create a an animation with data from the ShapeDiver model and how to trigger the animation on hover.
+The Grasshopper definition for this showcase can be found [here](https://shapediverdownloads.s3.amazonaws.com/DemoModels/ViewerExamples/shelf-door-animation.gh).

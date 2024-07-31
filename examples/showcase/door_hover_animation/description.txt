@@ -1,0 +1,1 @@
+This showcase demonstrates how to create a an animation with data from the ShapeDiver model and how to trigger the animation on hover.
