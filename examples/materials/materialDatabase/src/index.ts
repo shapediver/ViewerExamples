@@ -23,6 +23,13 @@ import { createUi } from '@shapediver/viewer.shared.demo-helper';
 const materialDatabase: { [key: string]: IMaterialStandardData | IMaterialGemData } = {};
 
 /**
+* Cache the material data to avoid creating the same material multiple times.
+* 
+* The cache key is a stringified version of the material definition.
+*/
+const cachedMaterials: { [key: string]: IMaterialStandardData | IMaterialGemData } = {};
+
+/**
 * Assign the materials from the material database to the geometries in the scene.
 * 
 * This function traverses the scene graph and assigns the materials from the material database to the geometries.
@@ -37,9 +44,13 @@ const assignMaterials = (node: ITreeNode) => {
           if (data instanceof GeometryData) {
               const materialName = data.material?.name;
               if (materialName) {
-                  data.material = materialDatabase[materialName];
-                  data.updateVersion();
-                  node.updateVersion();
+                  if (materialDatabase[materialName]) {
+                      data.material = materialDatabase[materialName];
+                      data.updateVersion();
+                      node.updateVersion();
+                  } else {
+                      console.warn(`Material ${materialName} not found in material database.`);
+                  }
               }
           }
       }
@@ -63,6 +74,14 @@ const assignMaterials = (node: ITreeNode) => {
   // Get the MaterialDatabase output.
   const materialDatabaseOutput = session.getOutputByName('MaterialDatabase')[0];
 
+  if (!materialDatabaseOutput) {
+      console.error('MaterialDatabase output not found.');
+
+      // If the MaterialDatabase output is not available, make the viewport visible
+      viewport.show = true;
+      return;
+  }
+
   /**
    * Create a callback function that is called when the MaterialDatabase output is updated.
    * In this callback, the materials are created from the material definitions and stored in the material database.
@@ -75,19 +94,36 @@ const assignMaterials = (node: ITreeNode) => {
 
       const materialDatabaseDefinition: { [key: string]: | IMaterialStandardDataPropertiesDefinition | IMaterialGemDataPropertiesDefinition; } = (newNode.data.find((d) => d instanceof SessionOutputData) as SessionOutputData).responseOutput.content?.[0].data;
 
-      const promises: Promise<{ name: string; materialData: IMaterialAbstractData; }>[] = [];
+      const promises: Promise<{ name: string; materialData: IMaterialAbstractData; } | void>[] = [];
       for (const key in materialDatabaseDefinition) {
-          promises.push(
-              // Create the material data from the material definition.
-              MaterialEngine.instance.createMaterialDataFromDefinition(materialDatabaseDefinition[key])
-                  .then((materialData) => { return { name: key, materialData, }; })
-          );
+          // Create a cache key for the material definition.
+          const cacheKey = JSON.stringify(materialDatabaseDefinition[key]);
+
+          // If the material data is already cached, use the cached material data.
+          if (cachedMaterials[cacheKey]) {
+              promises.push(Promise.resolve({ name: key, materialData: cachedMaterials[cacheKey] }));
+          } else {
+              promises.push(
+                  // Create the material data from the material definition.
+                  MaterialEngine.instance.createMaterialDataFromDefinition(materialDatabaseDefinition[key])
+                      .then((materialData) => {
+                          cachedMaterials[cacheKey] = materialData;
+                          return { name: key, materialData };
+                      })
+                      .catch((error) => {
+                          console.error(`Error creating material ${key} with properties ${materialDatabaseDefinition[key]}: ${error}`);
+                          return;
+                      })
+              );
+          }
       }
 
       // Once all materials are created, store them in the material database and assign them to the geometries.
       Promise.all(promises).then((materials) => {
           // Store the materials in the material database.
           materials.forEach((material) => {
+              if (!material) return;
+
               material.materialData.name = material.name;
               materialDatabase[material.name] = material.materialData;
           });
