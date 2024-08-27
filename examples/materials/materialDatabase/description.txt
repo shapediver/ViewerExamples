@@ -1,0 +1,2 @@
+Example where a material database is provided in an output.
+The materials are assigned by their name.
