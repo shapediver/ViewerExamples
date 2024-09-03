@@ -167,7 +167,7 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
     }
 
     // order the list
-    const order = ['showcase', 'setup', 'session', 'viewport', 'scene tree manipulation', 'augmented reality', 'materials', 'html anchors', 'animations', 'three.js', 'general', 'drawing tools', 'interactions', 'attribute visualization'];
+    const order = ['showcase', 'setup', 'session', 'viewport', 'scene tree manipulation', 'augmented reality', 'materials', 'html anchors', 'animations', 'three.js', 'general', 'drawing tools', 'gumball', 'interactions', 'attribute visualization'];
 
     // order the list
     const items = Array.from(parent.children);
