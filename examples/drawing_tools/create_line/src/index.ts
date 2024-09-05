@@ -49,9 +49,6 @@ import { createUi } from '@shapediver/viewer.shared.demo-helper';
                 },
                 origin: [450, 450, 0],
                 type: RESTRICTION_TYPE.PLANE,
-            },
-            axis: {
-                type: RESTRICTION_TYPE.AXIS,
             }
         }
     };

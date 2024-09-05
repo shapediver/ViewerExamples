@@ -70,10 +70,6 @@ import { createUi, } from '@shapediver/viewer.shared.demo-helper';
                 // The node to restrict is set below
                 nodes: [],
                 wireframeColor: '#ffffff',
-            },
-            // Add an axis restriction
-            'axis': {
-                type: RESTRICTION_TYPE.AXIS
             }
         }
     };
