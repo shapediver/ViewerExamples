@@ -174,7 +174,7 @@ import {
                     element.radius,
                     element.rotation
                   )
-                )
+                )!
               )
             );
             def.snapLines.forEach((element) =>
@@ -186,7 +186,7 @@ import {
                     element.radius,
                     element.rotation
                   )
-                )
+                )!
               )
             );
             break;
@@ -265,7 +265,7 @@ import {
       dragConstraintsIDs.push(
         dragManager.addDragConstraint(
           new PointConstraint(element.point, element.radius, element.rotation)
-        )
+        )!
       )
     );
     def.snapLines.forEach((element) =>
@@ -277,7 +277,7 @@ import {
             element.radius,
             element.rotation
           )
-        )
+        )!
       )
     );
   
