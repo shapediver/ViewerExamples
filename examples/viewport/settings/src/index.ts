@@ -31,6 +31,7 @@ import { createCustomUi, IDropdownElement } from '@shapediver/viewer.shared.demo
     const settingsUiDiv = document.createElement('div');
     settingsUiDiv.style.position = 'absolute';
     settingsUiDiv.style.width = '20rem';
+    settingsUiDiv.style.top = '0';
     document.body.appendChild(settingsUiDiv);
     createCustomUi([
         <IDropdownElement>{

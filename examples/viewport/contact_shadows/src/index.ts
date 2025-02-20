@@ -7,18 +7,21 @@ import { createCustomUi, IBooleanElement, ISliderElement } from "@shapediver/vie
     canvas: document.getElementById("canvas") as HTMLCanvasElement,
     id: "myViewer"
   });
+  // read out query parameters for "ticket" and "modelViewUrl"
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticket = urlParams.get('ticket');
+  const modelViewUrl = urlParams.get('modelViewUrl');
 
-  // create a session
-  const session = await createSession({
-    ticket:
-      "50eb2a26ddaa432ca18288b8a120ef194fa35bb813e4f43ae89d657991a865f9deaa20a1c840e47cdf6dbc019cd16ae15a9a6b3a7d91722455299d6bd29b1f26b3ff3b7adaac1df3d50f3ba4d010a560180dff8f745c946dadb41167a3431e223d69b32743f167-5b9465f92a0cf9c235b8ea315aab0cd5",
-    modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com",
-    id: "mySession"
+  const session = await SDV.createSession({
+    id: 'mySession',
+    ticket: ticket ?? 'aa8f99304bdad13693a123c9187a6a764c13345c448814ad7c70d79dae1b555b72795fbb2fd6faa368ff8cdee1368821771bec38f4b39c5e9fb7955be8c2b5f8f8da605fd4cdc1708402118ad706e8578a108c1fb6b6429f1e7279e19b12d0944a317848fa3ba8-78c86ce3f2f177c0b6ac5dafbb94e84e',
+    modelViewUrl: modelViewUrl ?? 'https://sdr8euc1.eu-central-1.shapediver.com'
   });
 
   // create the parameter ui on the right side
   const uiDiv = document.createElement('div');
   uiDiv.style.position = 'absolute';
+  uiDiv.style.top = '0';
   uiDiv.style.width = '20rem';
   document.body.appendChild(uiDiv);
   createCustomUi([
