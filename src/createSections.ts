@@ -105,7 +105,6 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             li.appendChild(div);
 
             let sectionName: string | undefined;
-            let collapse = false;
             if (markdownData) {
                 const markdownElement = document.createElement('div');
                 markdownElement.innerHTML = markdownData.markdown;
@@ -116,9 +115,6 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
                     sectionName = h3.textContent?.replace(/-/g, ' ').replace(/_/g, ' ').toLowerCase() as string;
                     h3.textContent = sectionName;
                 }
-
-                if (markdownData.markdown.includes('<!-- collapse -->'))
-                    collapse = true;
 
                 markdownElement.classList.add('markdown-element');
                 div.appendChild(markdownElement);
@@ -135,34 +131,10 @@ const traverseList = (parent: HTMLElement, folder: FolderStructure, path: string
             li.id = sectionName;
             div.id = sectionName;
 
-            if (collapse) {
-                // add arrow icon
-                const span = document.createElement('span');
-                span.className = 'material-symbols-outlined button collapse-span';
-                span.textContent = 'expand_more';
-                div.prepend(span);
-
-                div.style.cursor = 'pointer';
-                li.classList.add('collapse-li');
-                div.onclick = () => {
-                    const ul = li.querySelector('ul');
-                    if (ul)
-                        ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
-                    span.textContent = span.textContent === 'expand_more' ? 'expand_less' : 'expand_more';
-                }
-            }
-
             parent.appendChild(li);
             li.appendChild(ul);
 
             traverseList(ul, folder[f] as FolderStructure, path + f + '/');
-
-            // collapse the list initially
-            if (collapse) {
-                const ul = li.querySelector('ul');
-                if (ul)
-                    ul.style.display = 'none';
-            }
         }
     }
 

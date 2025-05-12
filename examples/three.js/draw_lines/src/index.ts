@@ -50,7 +50,8 @@ import * as THREE from "three";
   });
 
   // whenever the node updates re-assign interaction data to make the the nodes interactible
-  const cb = (node: ITreeNode) => {
+  const cb = (node?: ITreeNode) => {
+    if (!node) return;
     node.traverse((n) => {
       if (n.name === "mesh_0") {
         n.children.forEach((c) => {
