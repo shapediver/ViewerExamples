@@ -35,7 +35,7 @@ import { createUi } from '@shapediver/viewer.shared.demo-helper';
         },
         geometry: {
             // Provide the initial points
-            points: JSON.parse(pointsParameter.defval).points,
+            points: JSON.parse(pointsParameter.defval!).points,
             // The minimum amount of points
             minPoints: 4,
             // The maximum number of points

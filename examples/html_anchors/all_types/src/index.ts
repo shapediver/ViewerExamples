@@ -7,7 +7,8 @@ import {
   IAnchorDataImage,
   createSession,
   createViewport,
-  sceneTree
+  sceneTree,
+  IHTMLElementAnchorUpdateProperties
 } from "@shapediver/viewer";
 import { vec2 } from "gl-matrix";
 
@@ -40,15 +41,7 @@ const create = (properties: {
 
 // the update function that is called on every render call
 // you can do anything here
-const update = (properties: {
-  anchor: HTMLElementAnchorData;
-  htmlElement: HTMLDivElement;
-  page: vec2;
-  container: vec2;
-  client: vec2;
-  scale: vec2;
-  hidden: boolean;
-}) => {
+const update = (properties: IHTMLElementAnchorUpdateProperties) => {
   const x = properties.container[0] - properties.htmlElement.offsetWidth / 2;
   const y = properties.container[1] - properties.htmlElement.offsetHeight / 2;
 

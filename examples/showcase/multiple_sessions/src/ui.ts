@@ -1,4 +1,4 @@
-import { HTMLElementAnchorData } from "@shapediver/viewer";
+import { HTMLElementAnchorData, IHTMLElementAnchorUpdateProperties } from "@shapediver/viewer";
 import { createUi } from "@shapediver/viewer.shared.demo-helper";
 import { vec2 } from "gl-matrix";
 
@@ -26,15 +26,7 @@ export const create = (properties: {
 
 // the update function that is called on every render call
 // you can do anything here
-export const update = (properties: {
-  anchor: HTMLElementAnchorData;
-  htmlElement: HTMLDivElement;
-  page: vec2;
-  container: vec2;
-  client: vec2;
-  scale: vec2;
-  hidden: boolean;
-}) => {
+export const update = (properties: IHTMLElementAnchorUpdateProperties) => {
   properties.htmlElement.style.display = "";
 
   // calculate the position of the htmlElement

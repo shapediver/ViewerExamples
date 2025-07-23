@@ -5,7 +5,8 @@ import {
   createViewport,
   sceneTree,
   ITreeNode,
-  TreeNode
+  TreeNode,
+  IHTMLElementAnchorUpdateProperties
 } from "@shapediver/viewer";
 import { vec2, vec3 } from "gl-matrix";
 import { createUi } from "./ui";
@@ -27,15 +28,7 @@ const create = (properties: {
 
 // the update function that is called on every render call
 // you can do anything here
-const update = (properties: {
-  anchor: HTMLElementAnchorData;
-  htmlElement: HTMLDivElement;
-  page: vec2;
-  container: vec2;
-  client: vec2;
-  scale: vec2;
-  hidden: boolean;
-}) => {
+const update = (properties: IHTMLElementAnchorUpdateProperties) => {
   properties.htmlElement.style.display = "";
   // hide the htmlElement if the anchor is hidden
   if (properties.hidden) properties.htmlElement.style.display = "none";
