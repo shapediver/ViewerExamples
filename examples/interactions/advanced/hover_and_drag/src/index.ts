@@ -30,11 +30,11 @@ import {
   // setup drag manager with point constraint
   const pointConstraint = new PointConstraint([0, -25, 0], 25);
   const dragManager = new DragManager();
-  dragManager.addDragConstraint(pointConstraint);
 
   // setup interaction manager and assign drag manager
   const interactionEngine = new InteractionEngine(viewport);
   interactionEngine.addInteractionManager(dragManager);
+  dragManager.addDragConstraint(pointConstraint);
 
   const hoverManager = new HoverManager();
   interactionEngine.addInteractionManager(hoverManager);

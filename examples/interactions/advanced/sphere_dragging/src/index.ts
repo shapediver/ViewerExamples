@@ -45,8 +45,8 @@ const getNodesByNameWithRegex = (node: ITreeNode, regex: RegExp) => {
   // create the drag manager and add a place constraint
   const dragManager = new DragManager();
   dragManager.effectMaterial = new MaterialUnlitData({ color: "red" });
-  dragManager.addDragConstraint(new PlaneConstraint(vec3.fromValues(0, 0, 1)));
   interactionEngine.addInteractionManager(dragManager);
+  dragManager.addDragConstraint(new PlaneConstraint(vec3.fromValues(0, 0, 1)));
 
   // add a hover manager
   const hoverManager = new HoverManager();
