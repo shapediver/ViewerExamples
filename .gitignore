@@ -2,5 +2,7 @@
 */**/dist
 node_modules
 .cache
+.parcelrc
+.parcel-cache
 dist
 src/input.ts
