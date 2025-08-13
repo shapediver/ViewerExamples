@@ -14,9 +14,10 @@
     "build": "sh ./scripts/build.sh",
     "tsc-check": "tsc --noEmit",
     "before-build": "ts-node ./scripts/beforeBuild.ts",
-    "after-build": "ts-node ./scripts/afterBuild.ts",
+    "after-build": "ts-node ./scripts/afterBuild.ts && npm run generate-llms-doc",
     "parcel-build-prod-main": "parcel build index.html --public-url ./",
-    "parcel-open": "parcel index.html --open --port 8080"
+    "parcel-open": "parcel index.html --open --port 8080",
+    "generate-llms-doc": "ts-node ./scripts/generate-llms.ts && cp ./llms.txt ./dist/"
   },
   "keywords": [],
   "author": "",

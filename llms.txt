@@ -1,0 +1,382 @@
+# ShapeDiver Viewer Examples Analysis
+
+This document analyzes 159 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
+
+**Generated**: 2025-08-13  
+**Repository**: ShapeDiver/ViewerExamples  
+**Examples Analyzed**: 159  
+**Categories**: 15
+
+## Usage Pattern Analysis
+
+### Basic setup
+Creating viewport and session for 3D visualization
+- **Usage**: Found in 154 examples
+- **Examples**: animations/translation, animations/translation_rotation, animations/translation_rotation_scale, AR/default, AR/hide_objects
+
+### Materials
+Creating and applying PBR materials to geometry
+- **Usage**: Found in 45 examples
+- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
+
+### Interactions
+User interaction with 3D objects (selection, hover, drag)
+- **Usage**: Found in 37 examples
+- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
+
+### Events
+Listening to API events and user interactions
+- **Usage**: Found in 33 examples
+- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction
+
+### Output callbacks
+Handling dynamic updates when model outputs change
+- **Usage**: Found in 25 examples
+- **Examples**: drawing_tools/geometry_restriction, html_anchors/attributes_with_anchor, html_anchors/size_change_with_anchors, html_anchors/UI_with_anchor, interactions/advanced/hover_and_select
+
+### Customization
+Updating parameters and regenerating models
+- **Usage**: Found in 20 examples
+- **Examples**: drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction, general/event_listener, html_anchors/size_change_with_anchors
+
+### Drawing tools
+Interactive drawing and line creation tools
+- **Usage**: Found in 3 examples
+- **Examples**: drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction
+
+### Lighting
+Custom lighting setups with multiple light types
+- **Usage**: Found in 3 examples
+- **Examples**: showcase/gltf, viewport/lights/light_scene, viewport/lights/sunlight
+
+### Gumball
+3D transformation gizmo for object manipulation
+- **Usage**: Found in 2 examples
+- **Examples**: gumball/selection, gumball/simple
+
+### Exports
+Requesting and downloading model exports
+- **Usage**: Found in 2 examples
+- **Examples**: session/exports/export_request, session/exports/export_request_download_with_JwtToken
+
+## Code Patterns from Examples
+
+### Creating Viewport and Session
+*Standard initialization pattern*
+
+```typescript
+createViewport({
+    canvas: document.getElementById("canvas") as HTMLCanvasElement,
+    id: "myViewport"
+  });
+
+createSession({
+    ticket:
+      "319f14f08c1e67a874fd843acecfd321049772deb0cdb5a0dbb39385592a156e83730e45c5e7af5eab52e15b1e36d44a092f71ada1331e1935b0f25d9448af34d0add0bd5abf8984325b97ee9e6106b25216446d15a86bb18b40114df89d2f5909b08e8c8b9eeb-7516be37cb2d968a0b3c545baf3ae51e",
+    modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
+    id: "mySession"
+  });
+```
+
+**Used in**: translation
+
+### Updating Parameters and Customizing Model
+*Standard parameter modification workflow*
+
+```typescript
+const pointsParameter = session.getParameterByName('points')[0];
+pointsParameter.value = JSON.stringify({ 'points': pointsData });
+await session.customize();
+```
+
+**Used in**: create_line
+
+### Setting up Object Selection
+*Enable user interaction with 3D objects*
+
+```typescript
+new InteractionEngine(viewport);
+new SelectManager();
+interactionEngine.addInteractionManager(
+      attributeSelectManager
+    );
+```
+
+**Used in**: attribute_explorer
+
+### Creating PBR Materials
+*Define material properties for realistic rendering*
+
+```typescript
+new MaterialStandardData({
+    color: "#FFFF00"
+  })
+```
+
+**Used in**: attribute_explorer
+
+## Example Categories Overview
+
+### Animations
+**Examples**: 5  
+**Complexity**: 1 basic, 4 intermediate, 0 advanced
+
+- **hierarchical**: Create a hierarchical animation.
+- **hierarchical_advanced**: Create a hierarchical animation.
+- **translation**: Create a translation animation.
+- **translation_rotation**: Create a translation and rotation animation.
+- **translation_rotation_scale**: Create a translation, rotation and scale animation.
+
+### AR
+**Examples**: 3  
+**Complexity**: 3 basic, 0 intermediate, 0 advanced
+
+- **default**: Either load the model in AR or create a QR-Code if not on a compatible device.
+- **hide_objects**: Hide objects that should not be shown in the AR scene.
+- **load_custom_scene**: Load a different scene in a hidden viewport and create a QR-Code for it.
+
+### Attribute_visualization
+**Examples**: 6  
+**Complexity**: 4 basic, 2 intermediate, 0 advanced
+
+- **attribute**: Assign an attribute visualization.
+- **attribute_explorer**: An attribute explorer with various options for default materials.
+- **clickable**: Click on elements and see the data.
+- **gather_data**: Gather all attribute data.
+- **layer**: Assign a layer visualization.
+- **simple**: A simple example on how to start the attribute visualization.
+
+### Drawing_tools
+**Examples**: 3  
+**Complexity**: 2 basic, 1 intermediate, 0 advanced
+
+- **create_line**: Create a line as an input for GH.
+- **edit_line**: Edit an existing line.
+- **geometry_restriction**: Restrict the drawing to a mesh.
+
+### General
+**Examples**: 6  
+**Complexity**: 6 basic, 0 intermediate, 0 advanced
+
+- **closing**: Closing of viewports and sessions.
+- **console_branding**: short explanation on the example
+- **div_structure**: A proper structure so that the viewer elements are displayed correctly.
+- **error_handling**: How errors can be caught and converted.
+- **event_listener**: Event Listener system example.
+- **progress_events**: Display the progress of loading a model with the events provided.
+
+### Gumball
+**Examples**: 2  
+**Complexity**: 1 basic, 1 intermediate, 0 advanced
+
+- **selection**: Select objects and create a gumball for these objects.
+- **simple**: Create a single gumball for the session.
+
+### Html_anchors
+**Examples**: 4  
+**Complexity**: 1 basic, 2 intermediate, 1 advanced
+
+- **all_types**: All types of html anchors (text, image and custom) in one model.
+- **attributes_with_anchor**: Using anchors to display attribute data.
+- **size_change_with_anchors**: Use two anchors to change a specific parameter of the model.
+- **UI_with_anchor**: Use an HTML Anchor to display the UI of a model.
+
+### Interactions
+**Examples**: 28  
+**Complexity**: 0 basic, 19 intermediate, 9 advanced
+
+- **group**: Group several objects together for an interaction.
+- **hover_and_drag**: Hover and drag objects.
+- **hover_and_select**: Hover and select objects.
+- **selection_by_naming**: Separate interactions in multiple viewports and sessions.
+- **selection_by_naming_advanced**: Separate interactions in multiple viewports and sessions.
+- **sphere_dragging**: Drag spheres that affect the shape of the model.
+- **dragging_plane**: Use a plane for dragging.
+- **drag_information**: Event description when dragging.
+- *...and 20 more*
+
+### Materials
+**Examples**: 18  
+**Complexity**: 13 basic, 5 intermediate, 0 advanced
+
+- **all_material_properties**: All material properties exposed in a simple UI.
+- **custom_environment_map**: Gem stone rendering with a custom environment map.
+- **simple**: Example of the gem stone rendering.
+- **ui**: Advanced example of the gem stone rendering with UI.
+- **material_change_gltf_2.0_display**: Exchange the material on a glTF 2.0 Display component output.
+- **material_change_shapediver_display**: Exchange the material on a ShapeDiver Display component output.
+- **material_library**: Library with materials.
+- **alpha**: Example of the alpha material properties.
+- *...and 10 more*
+
+### Scene_tree_manipulation
+**Examples**: 5  
+**Complexity**: 0 basic, 5 intermediate, 0 advanced
+
+- **cloning**: Clone and translate the results of a computation.
+- **find_by_name**: Find the nodes that correspond to the name provided.
+- **material_manipulation**: Find a specific material and change it.
+- **persistent_updates**: Change the a property (in this case the translation) of a node every time it updates.
+- **traverse**: Traverse the children of a node or the data items of it.
+
+### Session
+**Examples**: 23  
+**Complexity**: 19 basic, 4 intermediate, 0 advanced
+
+- **automatic_update_and_session_settings**: Do not update the visible scene and only store the results in local values.
+- **cancel_customization**: Cancel a customization.
+- **consistency_between_updates_advanced**: Use the updateCallback to apply custom changes to the model after each update.
+- **content_update**: Update the content of an output manually.
+- **customize_result**: Receive the result of a customization.
+- **customize_with_values**: Customize and provide values directly.
+- **load_cached_outputs**: Load outputs that already have been cached.
+- **parallel_scene_customization**: Customize the scene in parallel multiple times.
+- *...and 15 more*
+
+### Setup
+**Examples**: 5  
+**Complexity**: 5 basic, 0 intermediate, 0 advanced
+
+- **CDN**: Using the Viewer API via a CDN.
+- **multiple_sessions**: Creating multiple sessions in a single viewport.
+- **multiple_viewports**: Creating multiple viewports with different cameras in them.
+- **mutliple_sessions_and_multiple_viewports**: Creating multiple sessions in multiple viewports.
+- **NPM**: Using the Viewer API via NPM.
+
+### Showcase
+**Examples**: 8  
+**Complexity**: 2 basic, 3 intermediate, 3 advanced
+
+- **curve_preview**: Preview the curve that is exported by GH with a three.js object.
+- **door_hover_animation**: This showcase demonstrates how to create a an animation with data from the ShapeDiver model and how to trigger the animation on hover.
+- **gltf**: This showcase demonstrates the loading and displaying of glTFs.
+- **kitchen_interaction**: This showcase demonstrates many of our interaction features.
+- **lamborghini**: short explanation on the example
+- **multiple_sessions**: This showcase demonstrates how multiple sessions can be used effectively.
+- **multiple_viewports**: This showcase demonstrates how multiple viewports can be used effectively.
+- **ribs_table_interaction**: This showcase demonstrates many of our interaction features.
+
+### Three.js
+**Examples**: 5  
+**Complexity**: 1 basic, 3 intermediate, 1 advanced
+
+- **clipping**: Clip part of the geometry with a clipping plane.
+- **converted_geometry**: Retrieve the converted three.js geometry from the scene tree.
+- **draw_lines**: Draw lines between points.
+- **gizmo**: Use the three.js gizmo to move objects.
+- **three.js_data**: Add custom three.js data to the scene tree.
+
+### Viewport
+**Examples**: 38  
+**Complexity**: 32 basic, 5 intermediate, 1 advanced
+
+- **branding**: Adjusting (removing or changing) the logo of the viewer and setting the color and opacity of the logo background.
+- **change_camera**: Change the active camera from the different cameras available.
+- **movement**: Various ways of how the camera can be moved programmatically.
+- **restrictions**: Restrict the position, target, rotation and zooming of the camera.
+- **turntable_controls**: Controls that allow to turn the object like it is on a table.
+- **zooming_with_buttons**: Zooming with a plus and a minus button.
+- **zoom_to_object**: Variations of how to zoom to an object.
+- **contact_shadows**: Try the new default settings values for an example model.
+- *...and 30 more*
+
+## Common API Patterns from Examples
+
+### Import Patterns
+```typescript
+import {  } from "@shapediver/viewer";
+```
+*Used in 49 examples*
+
+```typescript
+import { createViewport, createSession } from "@shapediver/viewer";
+```
+*Used in 13 examples*
+
+```typescript
+import { createSession, createViewport, MaterialStandardData } from "@shapediver/viewer";
+```
+*Used in 12 examples*
+
+```typescript
+import { createViewport, createSession, MaterialStandardData } from "@shapediver/viewer";
+```
+*Used in 11 examples*
+
+```typescript
+import { createUi } from "@shapediver/viewer.shared.demo-helper";
+```
+*Used in 8 examples*
+
+### Initialization Patterns
+**Viewport Creation**: Standard viewport initialization with canvas
+```typescript
+const viewport = await createViewport({
+  id: "myViewport",
+  canvas: <HTMLCanvasElement>document.getElementById("canvas"),
+  visibility: SDV.VISIBILITY_MODE.INSTANT
+});
+```
+*Found in 154 examples: hierarchical, hierarchical_advanced, translation and 151 more*
+
+**Session Creation**: Standard session initialization with ticket
+```typescript
+const session = await createSession({
+  ticket:
+      "319f14f08c1e67a874fd843acecfd321049772deb0cdb5a0dbb39385592a156e83730e45c5e7af5eab52e15b1e36d44a092f71ada1331e1935b0f25d9448af34d0add0bd5abf8984325b97ee9e6106b25216446d15a86bb18b40114df89d2f5909b08e8c8b9eeb-7516be37cb2d968a0b3c545baf3ae51e",
+  modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
+  id: "mySession"
+});
+```
+*Found in 150 examples: translation, translation_rotation, translation_rotation_scale and 147 more*
+
+## API Usage Statistics
+
+### Most Used API Calls
+- **createViewport**: 159 examples
+- **createSession**: 155 examples
+- **addListener**: 56 examples
+- **getOutputByName**: 39 examples
+- **getParameterByName**: 28 examples
+- **customize**: 24 examples
+- **getExportByName**: 6 examples
+- **createLightScene**: 3 examples
+
+### Package Dependencies
+- **@shapediver/viewer**: 218 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
+- **@shapediver/viewer.features.interaction**: 37 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
+- **@shapediver/viewer.features.attribute-visualization**: 4 examples (AttributeVisualizationEngine, IStringAttribute, ATTRIBUTE_VISUALIZATION)
+- **@shapediver/viewer.features.drawing-tools**: 3 examples (createDrawingTools, IDrawingToolsEvent, IDrawingToolsApi, PointsData, RESTRICTION_TYPE)
+- **@shapediver/viewer.features.gumball**: 2 examples (Gumball, GumballEventResponseMapping)
+
+## Complexity Analysis
+
+- **Basic Examples**: 90 (simple viewport/session setup)
+- **Intermediate Examples**: 54 (interactions, materials, lighting)
+- **Advanced Examples**: 15 (complex effects, custom rendering, math operations)
+
+## Example File Locations
+
+All examples are located in the `examples/` directory with the following structure:
+```
+examples/
+├── category/
+│   ├── README.md              # Category overview
+│   └── example_name/
+│       ├── description.txt    # Example description
+│       ├── example.html      # Demo page
+│       └── src/
+│           └── index.ts      # Main example code
+```
+
+## Best Practices Observed
+
+1. **Consistent Setup Pattern**: Most examples follow the createViewport() → createSession() pattern
+2. **Error Handling**: Advanced examples include try/catch blocks for robust operation
+3. **Event Management**: Examples properly add/remove event listeners to prevent memory leaks
+4. **Version Control**: Examples call updateVersion() after modifying scene graph nodes
+5. **Resource Management**: Examples properly manage viewport visibility and flags
+
+---
+
+*This analysis was automatically generated by parsing 159 TypeScript example files on 2025-08-13.*
