@@ -74,7 +74,7 @@ export const createCodeSandBoxParameters = (directory: string, dependencies: { [
                 }
 
             };
-        } if(fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.gif')) {
+        } if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.gif')) {
             files[fileName] = {
                 content: `https://raw.githubusercontent.com/shapediver/ViewerExamples/development/${directory}/${fileName}`,
                 isBinary: true
@@ -98,7 +98,7 @@ export const createCodeSandBoxParameters = (directory: string, dependencies: { [
         isBinary: false
     };
 
-    files['sandbox.config.json'] ={
+    files['sandbox.config.json'] = {
         content: JSON.stringify({
             "infiniteLoopProtection": true,
             "hardReloadOnChange": true,
@@ -129,5 +129,6 @@ export const createCodeSandBoxParameters = (directory: string, dependencies: { [
         isBinary: false
     }
 
-    return getParameters({ files });
+    const parameters = getParameters({ files });
+    return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${parameters}`;
 }

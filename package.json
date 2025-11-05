@@ -11,7 +11,7 @@
     "types": false
   },
   "scripts": {
-    "build": "sh ./scripts/build.sh",
+    "build": "set PARCEL_WORKERS=0 && sh ./scripts/build.sh",
     "tsc-check": "tsc --noEmit",
     "before-build": "ts-node ./scripts/beforeBuild.ts",
     "after-build": "ts-node ./scripts/afterBuild.ts && npm run generate-llms-doc",
@@ -35,20 +35,22 @@
     "three": "0.162.0"
   },
   "devDependencies": {
-    "@parcel/transformer-typescript-tsc": "2.15.4",
-    "@types/jsdom": "^21.1.6",
-    "buffer": "^6.0.3",
-    "codesandbox": "^2.2.3",
-    "crypto-browserify": "^3.12.1",
+    "@parcel/optimizer-htmlnano": "^2.16.1",
+    "@parcel/optimizer-terser": "^2.16.1",
+    "@parcel/transformer-typescript-tsc": "^2.16.1",
+    "@types/jsdom": "21.1.6",
+    "buffer": "6.0.3",
+    "codesandbox": "2.2.3",
+    "crypto-browserify": "3.12.1",
     "events": "^3.3.0",
     "jsdom": "^24.0.0",
     "marked": "^12.0.2",
-    "parcel": "2.15.4",
-    "process": "^0.11.10",
-    "stream-browserify": "^3.0.0",
-    "string_decoder": "^1.3.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "vm-browserify": "^1.1.2"
+    "parcel": "^2.16.1",
+    "process": "0.11.10",
+    "stream-browserify": "3.0.0",
+    "string_decoder": "1.3.0",
+    "ts-node": "10.9.2",
+    "typescript": "5.4.5",
+    "vm-browserify": "1.1.2"
   }
 }
