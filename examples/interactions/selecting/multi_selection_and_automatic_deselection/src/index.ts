@@ -49,6 +49,7 @@ import { vec3 } from "gl-matrix";
   addListener(EVENTTYPE.INTERACTION.SELECT_ON, (e) => {
     const node = (<IMultiSelectEvent>e).node;
     console.log(node);
+    if (!node) return;
     const output = session.outputs[node.name];
     console.log(output);
 
@@ -62,8 +63,6 @@ import { vec3 } from "gl-matrix";
   // as we manually select a node the point of intersection and distance can be specified as you want,
   // it will be forwarded into the event listener like any other interaction
   selectManger.select({
-    point: vec3.create(),
-    distance: 0,
     node: session.getOutputByName("Door")[0].node!
   });
 })();

@@ -6,15 +6,15 @@ import { InteractionData, InteractionEngine, MultiSelectManager, InteractionEven
 (<any>window).SDV = SDV;
 
 const sendNotification = (title: string, message: string) => {
-  if (Notification.permission === 'granted') {
-    new Notification(title, { body: message });
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(permission => {
-      if (permission === 'granted') {
+    if (Notification.permission === 'granted') {
         new Notification(title, { body: message });
-      }
-    });
-  }
+    } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                new Notification(title, { body: message });
+            }
+        });
+    }
 };
 
 (async () => {
@@ -43,7 +43,6 @@ const sendNotification = (title: string, message: string) => {
 
     // create the multi select manager
     const multiSelectManager = new MultiSelectManager();
-    multiSelectManager.useModifierKeys = true;
     multiSelectManager.effectMaterial = new SDV.MaterialStandardData({ color: 'red' });
     interactionEngine.addInteractionManager(multiSelectManager);
 

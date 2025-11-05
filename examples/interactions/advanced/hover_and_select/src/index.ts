@@ -43,7 +43,7 @@ import {
   // event listener for HOVER_ON
   addListener(EVENTTYPE.INTERACTION.HOVER_ON, (e) => {
     console.log("HOVER_ON");
-    const node = (<IHoverEvent>e).node;
+    const node = (<IHoverEvent>e).nodes[0];
     console.log(node);
     const output = session.outputs[node.name];
     console.log(output);
