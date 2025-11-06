@@ -3,7 +3,8 @@ import {
   MaterialStandardData,
   MaterialEngine,
   viewports,
-  sceneTree
+  sceneTree,
+  GeometryData
 } from "@shapediver/viewer";
 
 const materialEngine: MaterialEngine = MaterialEngine.instance;
@@ -16,6 +17,11 @@ const materialEngine: MaterialEngine = MaterialEngine.instance;
 export const createMaterialMenu = async (material: MaterialStandardData) => {
   // create an update callback for the material
   const updateMaterial = () => {
+    // for this example, we update all geometries in the scene
+    // it would be more efficient to only update the geometries that use the modified material
+    sceneTree.root.traverseData((data) => {
+      if (data instanceof GeometryData) data.updateVersion();
+    });
     material.updateVersion();
     sceneTree.root.updateVersion();
     viewports["myViewport"].update();

@@ -35,6 +35,7 @@ import { createMaps, getSessionGeometry } from "./utils";
 
   // create update callback
   const updateCallback = () => {
+    geometries.forEach((g) => (g.updateVersion()));
     material.updateVersion();
     session.node.updateVersion();
     viewport.update();

@@ -1,4 +1,5 @@
 import {
+  GeometryData,
   IViewportApi,
   MapData,
   MaterialEngine,
@@ -36,6 +37,11 @@ export const initMaterials = async (
   viewport = v;
 
   updateCallback = () => {
+    // for this example, we update all geometries in the scene
+    // it would be more efficient to only update the geometries that use the modified material
+    sceneTree.root.traverseData((data) => {
+      if (data instanceof GeometryData) data.updateVersion();
+    });
     material.updateVersion();
     sceneTree.root.updateVersion();
     viewport.update();

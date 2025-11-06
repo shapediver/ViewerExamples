@@ -37,6 +37,7 @@ let viewport: SDV.IViewportApi;
           tracingDepth: 4,
           tracingOpacity: 0.8
         });
+        d.updateVersion();
       }
     });
 

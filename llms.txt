@@ -1,37 +1,37 @@
 # ShapeDiver Viewer Examples Analysis
 
-This document analyzes 159 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
+This document analyzes 158 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
 
-**Generated**: 2025-11-05  
+**Generated**: 2025-11-06  
 **Repository**: ShapeDiver/ViewerExamples  
-**Examples Analyzed**: 159  
+**Examples Analyzed**: 158  
 **Categories**: 15
 
 ## Usage Pattern Analysis
 
 ### Basic setup
 Creating viewport and session for 3D visualization
-- **Usage**: Found in 154 examples
+- **Usage**: Found in 153 examples
 - **Examples**: animations/translation, animations/translation_rotation, animations/translation_rotation_scale, AR/default, AR/hide_objects
 
 ### Materials
 Creating and applying PBR materials to geometry
-- **Usage**: Found in 45 examples
+- **Usage**: Found in 44 examples
 - **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
 
 ### Interactions
 User interaction with 3D objects (selection, hover, drag)
-- **Usage**: Found in 37 examples
+- **Usage**: Found in 36 examples
 - **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
 
 ### Events
 Listening to API events and user interactions
-- **Usage**: Found in 33 examples
+- **Usage**: Found in 32 examples
 - **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction
 
 ### Output callbacks
 Handling dynamic updates when model outputs change
-- **Usage**: Found in 25 examples
+- **Usage**: Found in 24 examples
 - **Examples**: drawing_tools/geometry_restriction, html_anchors/attributes_with_anchor, html_anchors/size_change_with_anchors, html_anchors/UI_with_anchor, interactions/advanced/hover_and_select
 
 ### Customization
@@ -257,12 +257,11 @@ new MaterialStandardData({
 - **ribs_table_interaction**: This showcase demonstrates many of our interaction features.
 
 ### Three.js
-**Examples**: 5  
-**Complexity**: 1 basic, 3 intermediate, 1 advanced
+**Examples**: 4  
+**Complexity**: 1 basic, 3 intermediate, 0 advanced
 
 - **clipping**: Clip part of the geometry with a clipping plane.
 - **converted_geometry**: Retrieve the converted three.js geometry from the scene tree.
-- **draw_lines**: Draw lines between points.
 - **gizmo**: Use the three.js gizmo to move objects.
 - **three.js_data**: Add custom three.js data to the scene tree.
 
@@ -286,7 +285,7 @@ new MaterialStandardData({
 ```typescript
 import {  } from "@shapediver/viewer";
 ```
-*Used in 49 examples*
+*Used in 48 examples*
 
 ```typescript
 import { createViewport, createSession } from "@shapediver/viewer";
@@ -317,7 +316,7 @@ const viewport = await createViewport({
   visibility: SDV.VISIBILITY_MODE.INSTANT
 });
 ```
-*Found in 154 examples: hierarchical, hierarchical_advanced, translation and 151 more*
+*Found in 153 examples: hierarchical, hierarchical_advanced, translation and 150 more*
 
 **Session Creation**: Standard session initialization with ticket
 ```typescript
@@ -328,14 +327,14 @@ const session = await createSession({
   id: "mySession"
 });
 ```
-*Found in 150 examples: translation, translation_rotation, translation_rotation_scale and 147 more*
+*Found in 149 examples: translation, translation_rotation, translation_rotation_scale and 146 more*
 
 ## API Usage Statistics
 
 ### Most Used API Calls
-- **createViewport**: 159 examples
-- **createSession**: 155 examples
-- **addListener**: 56 examples
+- **createViewport**: 158 examples
+- **createSession**: 154 examples
+- **addListener**: 54 examples
 - **getOutputByName**: 39 examples
 - **getParameterByName**: 28 examples
 - **customize**: 24 examples
@@ -343,8 +342,8 @@ const session = await createSession({
 - **createLightScene**: 3 examples
 
 ### Package Dependencies
-- **@shapediver/viewer**: 218 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
-- **@shapediver/viewer.features.interaction**: 37 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
+- **@shapediver/viewer**: 216 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
+- **@shapediver/viewer.features.interaction**: 36 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
 - **@shapediver/viewer.features.attribute-visualization**: 4 examples (AttributeVisualizationEngine, IStringAttribute, ATTRIBUTE_VISUALIZATION)
 - **@shapediver/viewer.features.drawing-tools**: 3 examples (createDrawingTools, IDrawingToolsEvent, IDrawingToolsApi, PointsData, RESTRICTION_TYPE)
 - **@shapediver/viewer.features.gumball**: 2 examples (Gumball, GumballEventResponseMapping)
@@ -353,7 +352,7 @@ const session = await createSession({
 
 - **Basic Examples**: 90 (simple viewport/session setup)
 - **Intermediate Examples**: 54 (interactions, materials, lighting)
-- **Advanced Examples**: 15 (complex effects, custom rendering, math operations)
+- **Advanced Examples**: 14 (complex effects, custom rendering, math operations)
 
 ## Example File Locations
 
@@ -379,4 +378,4 @@ examples/
 
 ---
 
-*This analysis was automatically generated by parsing 159 TypeScript example files on 2025-11-05.*
+*This analysis was automatically generated by parsing 158 TypeScript example files on 2025-11-06.*

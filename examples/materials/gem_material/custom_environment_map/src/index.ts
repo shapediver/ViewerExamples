@@ -28,6 +28,7 @@ const assignGemMaterial = async (node: SDV.ITreeNode) => {
           tracingOpacity: 0.8,
           envMap: SDV.ENVIRONMENT_MAP.BALLROOM
         });
+        n.data[i].updateVersion();
       }
     }
   });
