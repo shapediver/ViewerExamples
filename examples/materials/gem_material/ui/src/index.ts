@@ -55,6 +55,7 @@ export const updateGemMaterial = async (properties: IGemMaterialProperties) => {
           (<SDV.GeometryData>n.data[i]).material = new SDV.MaterialGemData(
             gemMaterialProperties
           );
+          n.data[i].updateVersion();
         }
       }
     });
