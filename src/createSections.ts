@@ -13,7 +13,8 @@ const createFormSubmit = (id: string, parameters: string): HTMLFormElement => {
 
     input.type = 'hidden';
     input.name = 'parameters';
-    input.value = parameters;
+    const paramsIdx = parameters.indexOf('?parameters=');
+    input.value = paramsIdx !== -1 ? parameters.substring(paramsIdx + '?parameters='.length) : parameters;
 
     inputInner.type = "submit";
     inputInner.id = id;

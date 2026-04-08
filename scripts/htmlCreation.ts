@@ -55,21 +55,22 @@ const createFormSubmit = (document: Document, id: string, parameters: string): H
     const form = document.createElement('form') as HTMLFormElement;
     const input = document.createElement('input') as HTMLInputElement;
     const inputInner = document.createElement('input') as HTMLInputElement;
-    
+
     form.action = 'https://codesandbox.io/api/v1/sandboxes/define';
     form.method = 'POST';
     form.target = '_blank';
     form.style.display = 'none';
-    
+
     input.type = 'hidden';
     input.name = 'parameters';
-    input.value = parameters;
-    
+    const paramsIdx = parameters.indexOf('?parameters=');
+    input.value = paramsIdx !== -1 ? parameters.substring(paramsIdx + '?parameters='.length) : parameters;
+
     inputInner.type = "submit";
     inputInner.id = `form_${id}`;
     inputInner.style.display = "none";
     inputInner.value = "Create CodeSandbox";
-    
+
     form.appendChild(input);
     form.appendChild(inputInner);
 
@@ -98,10 +99,10 @@ export const createButtonSpan = (document: Document, id: string, name: string, t
     a.style.cursor = 'pointer';
 
     a.id = id;
-    if(!url.startsWith('function'))
+    if (!url.startsWith('function'))
         a.className = `plausible-event-name=${id} plausible-event-example=${name}`;
-    
-    if(url.startsWith('window.open') || url.startsWith('function')) {
+
+    if (url.startsWith('window.open') || url.startsWith('function')) {
         a.setAttribute('onclick', url);
     } else {
         const formSubmit = createFormSubmit(document, id, url);
@@ -155,7 +156,7 @@ export const createCornerContainers = (document: Document, body: HTMLHeadElement
     topRightDiv.style.right = '1.5rem';
     topRightDiv.style.display = 'flex';
     body.appendChild(topRightDiv);
-    
+
     const bottomLeftDiv = document.createElement('div');
     bottomLeftDiv.id = 'bottomLeftDiv';
     bottomLeftDiv.className = "button-container";

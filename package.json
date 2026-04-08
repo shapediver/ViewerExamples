@@ -11,11 +11,14 @@
     "types": false
   },
   "scripts": {
-    "build": "set PARCEL_WORKERS=0 && sh ./scripts/build.sh",
+    "build": "sh ./scripts/build.sh",
+    "build-local": "PUBLIC_URL=/ sh ./scripts/build.sh",
+    "deploy-staging": "DEPLOY_ENV=staging npm run build && DEPLOY_ENV=staging ts-node ./scripts/deploy.ts",
+    "deploy-prod": "DEPLOY_ENV=prod npm run build && DEPLOY_ENV=prod ts-node ./scripts/deploy.ts",
     "tsc-check": "tsc --noEmit",
     "before-build": "ts-node ./scripts/beforeBuild.ts",
     "after-build": "ts-node ./scripts/afterBuild.ts && npm run generate-llms-doc",
-    "parcel-build-prod-main": "parcel build index.html --public-url ./",
+    "parcel-build-prod-main": "parcel build index.html --public-url /",
     "parcel-open": "parcel index.html --open --port 8080",
     "generate-llms-doc": "ts-node ./scripts/generate-llms.ts && cp ./llms.txt ./dist/"
   },
@@ -35,6 +38,7 @@
     "three": "0.162.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1024.0",
     "@parcel/optimizer-htmlnano": "^2.16.1",
     "@parcel/optimizer-terser": "^2.16.1",
     "@parcel/transformer-typescript-tsc": "^2.16.1",
