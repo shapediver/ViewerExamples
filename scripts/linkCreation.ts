@@ -30,7 +30,13 @@ const getFileNames = (dir: string): string[] => {
  * @returns 
  */
 export const createGithubUrl = (directory: string) => {
-    return `https://github.com/shapediver/ViewerExamples/blob/development/${directory}`;
+    const srcDir = `${directory}/src`;
+    const tsFiles = fs.existsSync(srcDir)
+        ? fs.readdirSync(srcDir).filter(f => f.endsWith('.ts'))
+        : [];
+    if (tsFiles.length === 1)
+        return `https://github.com/shapediver/ViewerExamples/blob/development/${srcDir}/${tsFiles[0]}`;
+    return `https://github.com/shapediver/ViewerExamples/tree/development/${srcDir}`;
 }
 
 /**
