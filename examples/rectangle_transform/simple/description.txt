@@ -1,0 +1,1 @@
+Create a single RectangleTransform for the session.

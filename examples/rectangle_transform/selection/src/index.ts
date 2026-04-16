@@ -1,7 +1,7 @@
 import * as SDV from '@shapediver/viewer';
-import { addListener, EVENTTYPE_GUMBALL } from '@shapediver/viewer';
-import { Gumball, GumballEventResponseMapping } from '@shapediver/viewer.features.gumball';
-import { InteractionData, InteractionEngine, MultiSelectManager, InteractionEventResponseMapping, HoverManager, IMultiSelectEvent } from '@shapediver/viewer.features.interaction';
+import { addListener, EVENTTYPE_TRANSFORMATION_TOOLS } from '@shapediver/viewer';
+import { RectangleTransform, EventResponseMapping } from '@shapediver/viewer.features.transformation-tools';
+import { InteractionData, InteractionEngine, MultiSelectManager, InteractionEventResponseMapping, HoverManager, IMultiSelectEvent, RESTRICTION_TYPE } from '@shapediver/viewer.features.interaction';
 
 (<any>window).SDV = SDV;
 
@@ -48,34 +48,40 @@ const sendNotification = (title: string, message: string) => {
 
     // create the hover manager
     const hoverManager = new HoverManager();
-    hoverManager.effectMaterial = new SDV.MaterialStandardData({ color: 'blue' });
     interactionEngine.addInteractionManager(hoverManager);
 
-    // create an event listener for the gumball
-    const eventListenerToken = addListener(EVENTTYPE_GUMBALL.MATRIX_CHANGED, (e) => {
-        const gumballEvent = e as GumballEventResponseMapping[SDV.EVENTTYPE_GUMBALL.MATRIX_CHANGED];
+    // create an event listener for the RectangleTransform
+    const eventListenerToken = addListener(EVENTTYPE_TRANSFORMATION_TOOLS.MATRIX_CHANGED, (e) => {
+        const event = e as EventResponseMapping[EVENTTYPE_TRANSFORMATION_TOOLS.MATRIX_CHANGED];
 
         // show the notification
         sendNotification(
-            'Gumball has changed',
-            `- viewportId: ${gumballEvent.viewportId}
-            - nodes: ${gumballEvent.nodes}
-            - transformations: ${gumballEvent.transformations}`
+            'RectangleTransform has changed',
+            `- viewportId: ${event.viewportId}
+            - nodes: ${event.nodes}
+            - transformations: ${event.transformations}`
         );
     });
 
-    let gumball: Gumball | undefined;
+    let rectangleTransform: RectangleTransform | undefined;
 
-    // create a gumball on multi select
+    // create a RectangleTransform on multi select
     const eventListenerCallback = (e: IMultiSelectEvent) => {
-        // close the gumball if it is open
-        if (gumball) {
-            gumball.close();
+        // close the RectangleTransform if it is open
+        if (rectangleTransform) {
+            rectangleTransform.close();
         }
 
-        // create the gumball if there are nodes selected
+        // create the RectangleTransform if there are nodes selected
         if (e.nodes.length > 0) {
-            gumball = new Gumball(viewport, e.nodes);
+            rectangleTransform = new RectangleTransform(viewport, e.nodes, {
+                plane: {
+                    origin: [0, 0, 0],
+                    vector_u: [1, 0, 0],
+                    vector_v: [0, 1, 0],
+                    type: RESTRICTION_TYPE.PLANE
+                },
+            });
         }
     };
 

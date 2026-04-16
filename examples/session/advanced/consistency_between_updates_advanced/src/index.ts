@@ -1,7 +1,6 @@
 
 
-import { createSession, createViewport, ITreeNode } from "@shapediver/viewer";
-import { HTMLElementAnchorTextData } from "@shapediver/viewer.shared.types";
+import { createSession, createViewport, HTMLElementAnchorTextData, ITreeNode } from "@shapediver/viewer";
 
 (async () => {
   // create a viewport
