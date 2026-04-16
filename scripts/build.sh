@@ -2,6 +2,7 @@
 
 set -e
 
+npm dedupe
 rm -rf dist
 npm run tsc-check
 npm run before-build
