@@ -31,9 +31,11 @@ const sendNotification = (title: string, message: string) => {
         modelViewUrl: 'https://sdr7euc1.eu-central-1.shapediver.com'
     });
 
+    const imageOutput = session.getOutputByName("Image Plane")[0];
+
     // create the RectangleTransform with a viewport, nodes, and a plane definition
     // the plane defines the surface on which the rectangular handle is drawn
-    const rectangleTransform = new RectangleTransform(viewport, [session.node], {
+    const rectangleTransform = new RectangleTransform(viewport, [imageOutput.node!], {
         plane: {
             origin: [0, 0, 0],
             vector_u: [1, 0, 0],

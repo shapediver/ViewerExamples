@@ -1,32 +1,32 @@
 # ShapeDiver Viewer Examples Analysis
 
-This document analyzes 158 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
+This document analyzes 160 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
 
-**Generated**: 2026-04-10  
+**Generated**: 2026-04-16  
 **Repository**: ShapeDiver/ViewerExamples  
-**Examples Analyzed**: 158  
-**Categories**: 15
+**Examples Analyzed**: 160  
+**Categories**: 16
 
 ## Usage Pattern Analysis
 
 ### Basic setup
 Creating viewport and session for 3D visualization
-- **Usage**: Found in 153 examples
+- **Usage**: Found in 155 examples
 - **Examples**: animations/translation, animations/translation_rotation, animations/translation_rotation_scale, AR/default, AR/hide_objects
 
 ### Materials
 Creating and applying PBR materials to geometry
-- **Usage**: Found in 44 examples
-- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
+- **Usage**: Found in 45 examples
+- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball_transform/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
 
 ### Interactions
 User interaction with 3D objects (selection, hover, drag)
-- **Usage**: Found in 36 examples
-- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
+- **Usage**: Found in 37 examples
+- **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, gumball_transform/selection, interactions/advanced/group, interactions/advanced/hover_and_drag
 
 ### Events
 Listening to API events and user interactions
-- **Usage**: Found in 32 examples
+- **Usage**: Found in 34 examples
 - **Examples**: attribute_visualization/attribute_explorer, attribute_visualization/clickable, drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction
 
 ### Output callbacks
@@ -52,7 +52,7 @@ Custom lighting setups with multiple light types
 ### Gumball
 3D transformation gizmo for object manipulation
 - **Usage**: Found in 2 examples
-- **Examples**: gumball/selection, gumball/simple
+- **Examples**: gumball_transform/selection, gumball_transform/simple
 
 ### Exports
 Requesting and downloading model exports
@@ -165,12 +165,12 @@ new MaterialStandardData({
 - **event_listener**: Event Listener system example.
 - **progress_events**: Display the progress of loading a model with the events provided.
 
-### Gumball
+### Gumball_transform
 **Examples**: 2  
 **Complexity**: 1 basic, 1 intermediate, 0 advanced
 
-- **selection**: Select objects and create a gumball for these objects.
-- **simple**: Create a single gumball for the session.
+- **selection**: Select objects and create a GumballTransform for these objects.
+- **simple**: Create a single GumballTransform for the session.
 
 ### Html_anchors
 **Examples**: 4  
@@ -208,6 +208,13 @@ new MaterialStandardData({
 - **material_library**: Library with materials.
 - **alpha**: Example of the alpha material properties.
 - *...and 10 more*
+
+### Rectangle_transform
+**Examples**: 2  
+**Complexity**: 1 basic, 1 intermediate, 0 advanced
+
+- **selection**: Select objects and create a RectangleTransform for these objects.
+- **simple**: Create a single RectangleTransform for the session.
 
 ### Scene_tree_manipulation
 **Examples**: 5  
@@ -285,7 +292,7 @@ new MaterialStandardData({
 ```typescript
 import {  } from "@shapediver/viewer";
 ```
-*Used in 48 examples*
+*Used in 50 examples*
 
 ```typescript
 import { createViewport, createSession } from "@shapediver/viewer";
@@ -316,7 +323,7 @@ const viewport = await createViewport({
   visibility: SDV.VISIBILITY_MODE.INSTANT
 });
 ```
-*Found in 153 examples: hierarchical, hierarchical_advanced, translation and 150 more*
+*Found in 155 examples: hierarchical, hierarchical_advanced, translation and 152 more*
 
 **Session Creation**: Standard session initialization with ticket
 ```typescript
@@ -327,31 +334,31 @@ const session = await createSession({
   id: "mySession"
 });
 ```
-*Found in 149 examples: translation, translation_rotation, translation_rotation_scale and 146 more*
+*Found in 151 examples: translation, translation_rotation, translation_rotation_scale and 148 more*
 
 ## API Usage Statistics
 
 ### Most Used API Calls
-- **createViewport**: 158 examples
-- **createSession**: 154 examples
-- **addListener**: 54 examples
-- **getOutputByName**: 39 examples
+- **createViewport**: 160 examples
+- **createSession**: 156 examples
+- **addListener**: 57 examples
+- **getOutputByName**: 41 examples
 - **getParameterByName**: 28 examples
 - **customize**: 24 examples
 - **getExportByName**: 6 examples
 - **createLightScene**: 3 examples
 
 ### Package Dependencies
-- **@shapediver/viewer**: 216 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
-- **@shapediver/viewer.features.interaction**: 36 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
+- **@shapediver/viewer**: 219 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
+- **@shapediver/viewer.features.interaction**: 38 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
 - **@shapediver/viewer.features.attribute-visualization**: 4 examples (AttributeVisualizationEngine, IStringAttribute, ATTRIBUTE_VISUALIZATION)
+- **@shapediver/viewer.features.transformation-tools**: 4 examples (GumballTransform, EventResponseMapping, RectangleTransform, )
 - **@shapediver/viewer.features.drawing-tools**: 3 examples (createDrawingTools, IDrawingToolsEvent, IDrawingToolsApi, PointsData, RESTRICTION_TYPE)
-- **@shapediver/viewer.features.gumball**: 2 examples (Gumball, GumballEventResponseMapping)
 
 ## Complexity Analysis
 
-- **Basic Examples**: 90 (simple viewport/session setup)
-- **Intermediate Examples**: 54 (interactions, materials, lighting)
+- **Basic Examples**: 91 (simple viewport/session setup)
+- **Intermediate Examples**: 55 (interactions, materials, lighting)
 - **Advanced Examples**: 14 (complex effects, custom rendering, math operations)
 
 ## Example File Locations
@@ -378,4 +385,4 @@ examples/
 
 ---
 
-*This analysis was automatically generated by parsing 158 TypeScript example files on 2026-04-10.*
+*This analysis was automatically generated by parsing 160 TypeScript example files on 2026-04-16.*
