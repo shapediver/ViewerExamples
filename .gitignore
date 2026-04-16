@@ -4,5 +4,6 @@ node_modules
 .cache
 .parcelrc
 .parcel-cache
+.npmrc
 dist
 src/input.ts
