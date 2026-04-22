@@ -17,7 +17,7 @@
     .slide-in {
       transition: 1s;
       left: -79px;
-      visibility: none;
+      visibility: hidden;
     }
 
     .slider {
@@ -68,7 +68,6 @@
 
     .slide-menu {
       position: absolute;
-      z-index: -1;
     }
 
     .slider-div {
@@ -102,7 +101,6 @@
       display: flex;
       position: absolute;
       top: 0%;
-      z-index: -2;
     }
 
     #main-menu-div {
@@ -132,6 +130,8 @@
       width: 79px;
       height: 100%;
       background-color: #303030;
+      position: relative;
+      z-index: 1;
     }
 
     #lambo-logo {
