@@ -1,4 +1,10 @@
-import { createSession, createViewport, ISessionApi } from "@shapediver/viewer";
+import {
+  createSession,
+  createViewport,
+  ISessionApi,
+  ITreeNode,
+  OutputApiData,
+} from "@shapediver/viewer";
 
 const init = async () => {
   // create the viewport and connect it to the canvas
@@ -18,6 +24,7 @@ const init = async () => {
   // once the session is ready, bind it to our UI elements
   bindParameterUI(session);
   bindExportUI(session);
+  bindOutputUI(session);
 };
 
 init();
@@ -57,4 +64,26 @@ const bindExportUI = (session: ISessionApi) => {
     const fileUrl = result.content![0].href;
     window.open(fileUrl, "_blank");
   });
+};
+
+const bindOutputUI = (session: ISessionApi) => {
+  // Fetch the output parameter by its name that was given in GrassHopper
+  const outputApi = session.getOutputByName("Image Plane Box")[0];
+
+  // define a callback function that will be called whenever the output data is updated
+  const updateCallback = (newNode?: ITreeNode) => {
+    const outputApiData = newNode?.data.find(
+      (d) => d instanceof OutputApiData,
+    ) as OutputApiData;
+    // get the new content
+    const content = outputApiData!.api.content![0].data;
+    // display the content as plain text
+    const pre = document.getElementById("output-content") as HTMLPreElement;
+    pre.textContent = JSON.stringify(content, null, 2);
+  };
+
+  // display initial content
+  updateCallback(outputApi.node);
+  // set callback for future updates
+  outputApi.updateCallback = updateCallback;
 };

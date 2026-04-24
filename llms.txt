@@ -1,17 +1,17 @@
 # ShapeDiver Viewer Examples Analysis
 
-This document analyzes 160 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
+This document analyzes 162 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
 
-**Generated**: 2026-04-22  
+**Generated**: 2026-04-24  
 **Repository**: ShapeDiver/ViewerExamples  
-**Examples Analyzed**: 160  
+**Examples Analyzed**: 162  
 **Categories**: 16
 
 ## Usage Pattern Analysis
 
 ### Basic setup
 Creating viewport and session for 3D visualization
-- **Usage**: Found in 155 examples
+- **Usage**: Found in 157 examples
 - **Examples**: animations/translation, animations/translation_rotation, animations/translation_rotation_scale, AR/default, AR/hide_objects
 
 ### Materials
@@ -36,13 +36,18 @@ Handling dynamic updates when model outputs change
 
 ### Customization
 Updating parameters and regenerating models
-- **Usage**: Found in 20 examples
+- **Usage**: Found in 22 examples
 - **Examples**: drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction, general/event_listener, html_anchors/size_change_with_anchors
 
 ### Drawing tools
 Interactive drawing and line creation tools
 - **Usage**: Found in 3 examples
 - **Examples**: drawing_tools/create_line, drawing_tools/edit_line, drawing_tools/geometry_restriction
+
+### Exports
+Requesting and downloading model exports
+- **Usage**: Found in 3 examples
+- **Examples**: session/exports/export_request, session/exports/export_request_download_with_JwtToken, setup/first_application
 
 ### Lighting
 Custom lighting setups with multiple light types
@@ -53,11 +58,6 @@ Custom lighting setups with multiple light types
 3D transformation gizmo for object manipulation
 - **Usage**: Found in 2 examples
 - **Examples**: gumball_transform/selection, gumball_transform/simple
-
-### Exports
-Requesting and downloading model exports
-- **Usage**: Found in 2 examples
-- **Examples**: session/exports/export_request, session/exports/export_request_download_with_JwtToken
 
 ## Code Patterns from Examples
 
@@ -227,8 +227,8 @@ new MaterialStandardData({
 - **traverse**: Traverse the children of a node or the data items of it.
 
 ### Session
-**Examples**: 23  
-**Complexity**: 19 basic, 4 intermediate, 0 advanced
+**Examples**: 24  
+**Complexity**: 20 basic, 4 intermediate, 0 advanced
 
 - **automatic_update_and_session_settings**: Do not update the visible scene and only store the results in local values.
 - **cancel_customization**: Cancel a customization.
@@ -238,13 +238,14 @@ new MaterialStandardData({
 - **customize_with_values**: Customize and provide values directly.
 - **load_cached_outputs**: Load outputs that already have been cached.
 - **parallel_scene_customization**: Customize the scene in parallel multiple times.
-- *...and 15 more*
+- *...and 16 more*
 
 ### Setup
-**Examples**: 5  
-**Complexity**: 5 basic, 0 intermediate, 0 advanced
+**Examples**: 6  
+**Complexity**: 6 basic, 0 intermediate, 0 advanced
 
 - **CDN**: Using the Viewer API via a CDN.
+- **first_application**: Creating a simple application with a slider and an export.
 - **multiple_sessions**: Creating multiple sessions in a single viewport.
 - **multiple_viewports**: Creating multiple viewports with different cameras in them.
 - **mutliple_sessions_and_multiple_viewports**: Creating multiple sessions in multiple viewports.
@@ -323,7 +324,7 @@ const viewport = await createViewport({
   visibility: SDV.VISIBILITY_MODE.INSTANT
 });
 ```
-*Found in 155 examples: hierarchical, hierarchical_advanced, translation and 152 more*
+*Found in 157 examples: hierarchical, hierarchical_advanced, translation and 154 more*
 
 **Session Creation**: Standard session initialization with ticket
 ```typescript
@@ -334,22 +335,22 @@ const session = await createSession({
   id: "mySession"
 });
 ```
-*Found in 151 examples: translation, translation_rotation, translation_rotation_scale and 148 more*
+*Found in 153 examples: translation, translation_rotation, translation_rotation_scale and 150 more*
 
 ## API Usage Statistics
 
 ### Most Used API Calls
-- **createViewport**: 160 examples
-- **createSession**: 156 examples
+- **createViewport**: 162 examples
+- **createSession**: 158 examples
 - **addListener**: 57 examples
 - **getOutputByName**: 41 examples
-- **getParameterByName**: 26 examples
-- **customize**: 24 examples
-- **getExportByName**: 6 examples
+- **customize**: 31 examples
+- **getParameterByName**: 27 examples
+- **getExportByName**: 7 examples
 - **createLightScene**: 3 examples
 
 ### Package Dependencies
-- **@shapediver/viewer**: 219 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
+- **@shapediver/viewer**: 221 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
 - **@shapediver/viewer.features.interaction**: 38 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
 - **@shapediver/viewer.features.attribute-visualization**: 4 examples (AttributeVisualizationEngine, IStringAttribute, ATTRIBUTE_VISUALIZATION)
 - **@shapediver/viewer.features.transformation-tools**: 4 examples (GumballTransform, EventResponseMapping, RectangleTransform, )
@@ -357,7 +358,7 @@ const session = await createSession({
 
 ## Complexity Analysis
 
-- **Basic Examples**: 91 (simple viewport/session setup)
+- **Basic Examples**: 93 (simple viewport/session setup)
 - **Intermediate Examples**: 56 (interactions, materials, lighting)
 - **Advanced Examples**: 13 (complex effects, custom rendering, math operations)
 
@@ -385,4 +386,4 @@ examples/
 
 ---
 
-*This analysis was automatically generated by parsing 160 TypeScript example files on 2026-04-22.*
+*This analysis was automatically generated by parsing 162 TypeScript example files on 2026-04-24.*
