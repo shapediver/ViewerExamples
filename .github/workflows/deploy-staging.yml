@@ -45,7 +45,7 @@ jobs:
                   aws-region: us-east-1
 
             - name: Deploy to staging
-              run: ts-node ./scripts/deploy.ts
+              run: npx ts-node ./scripts/deploy.ts
 
             - name: Collect failure artifacts
               if: failure()
