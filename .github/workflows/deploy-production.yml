@@ -1,0 +1,151 @@
+name: deploy-production
+
+on:
+    repository_dispatch:
+        types:
+            - viewer-release
+    workflow_dispatch:
+        inputs:
+            version:
+                description: Viewer version to deploy (e.g. 3.19.0). Leave empty to deploy current pinned version.
+                required: false
+                type: string
+
+permissions:
+    contents: write
+    id-token: write
+
+concurrency:
+    group: viewer-examples-production
+    cancel-in-progress: false
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: production
+
+        env:
+            DEPLOY_ENV: prod
+
+        steps:
+            - name: Determine version
+              id: version
+              shell: bash
+              run: |
+                  if [[ "${{ github.event_name }}" == "repository_dispatch" ]]; then
+                    VERSION="${{ github.event.client_payload.version }}"
+                  elif [[ -n "${{ inputs.version }}" ]]; then
+                    VERSION="${{ inputs.version }}"
+                  else
+                    VERSION=""
+                  fi
+                  echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+                  if [[ -n "${VERSION}" ]]; then
+                    echo "Deploying viewer version: ${VERSION}"
+                  else
+                    echo "No version specified - using currently pinned versions."
+                  fi
+
+            - name: Create GitHub App token
+              if: steps.version.outputs.version != ''
+              id: app-token
+              uses: actions/create-github-app-token@v3
+              with:
+                  client-id: "${{ vars.BOT_APP_CLIENT_ID || secrets.BOT_APP_CLIENT_ID }}"
+                  private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+                  owner: ${{ github.repository_owner }}
+                  repositories: ${{ github.event.repository.name }}
+                  permission-contents: write
+
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  token: ${{ steps.app-token.outputs.token || github.token }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24.12.0
+                  cache: npm
+
+            - name: Update viewer dependencies
+              if: steps.version.outputs.version != ''
+              shell: bash
+              run: |
+                  VERSION="${{ steps.version.outputs.version }}"
+                  echo "Updating @shapediver/viewer packages to ${VERSION}..."
+
+                  # Update all @shapediver/viewer packages in package.json
+                  DEPS=$(node -e "
+                    const pkg = require('./package.json');
+                    const deps = {...pkg.dependencies};
+                    for (const [name, ver] of Object.entries(deps)) {
+                      if (name.startsWith('@shapediver/viewer')) {
+                        console.log(name);
+                      }
+                    }
+                  ")
+
+                  for pkg in $DEPS; do
+                    echo "  Setting ${pkg} -> ${VERSION}"
+                    npm pkg set "dependencies.${pkg}"="${VERSION}"
+                  done
+
+                  echo "Updated package.json dependencies."
+
+            - name: Install dependencies
+              run: |
+                  rm -rf node_modules package-lock.json
+                  npm install
+
+            - name: Build
+              run: npm run build
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+                  aws-region: us-east-1
+
+            - name: Deploy to production
+              run: ts-node ./scripts/deploy.ts
+
+            - name: Commit version bump
+              if: steps.version.outputs.version != ''
+              shell: bash
+              run: |
+                  APP_SLUG="${{ steps.app-token.outputs.app-slug }}"
+                  USER_ID="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
+                  git config user.name "${APP_SLUG}[bot]"
+                  git config user.email "${USER_ID}+${APP_SLUG}[bot]@users.noreply.github.com"
+
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    git add -A
+                    git commit -m "chore(deps): bump viewer packages to ${{ steps.version.outputs.version }}"
+                    git push origin HEAD:development
+                    echo "Pushed version bump to development."
+                  else
+                    echo "No changes to commit."
+                  fi
+              env:
+                  GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+            - name: Collect failure artifacts
+              if: failure()
+              shell: bash
+              run: |
+                  rm -rf .github-artifacts/failure
+                  mkdir -p .github-artifacts/failure
+
+                  if [[ -d dist ]]; then
+                    cp -R dist .github-artifacts/failure/
+                  fi
+
+            - name: Upload failure artifacts
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: viewer-examples-production-failure-artifacts
+                  if-no-files-found: ignore
+                  compression-level: 0
+                  path: .github-artifacts/failure/
