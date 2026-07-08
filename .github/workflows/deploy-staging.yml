@@ -17,6 +17,7 @@ concurrency:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        environment: staging
 
         env:
             DEPLOY_ENV: staging
