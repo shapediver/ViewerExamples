@@ -4,8 +4,8 @@ set -e
 
 npm dedupe
 rm -rf dist
-npm run tsc-check
 npm run before-build
+npm run tsc-check
 
 # Collect all example entry points plus the main index
 ENTRIES=$(find examples -name 'example.html')
