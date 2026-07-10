@@ -2,7 +2,7 @@
 
 This document analyzes 162 working examples from the ShapeDiver Viewer Examples repository to demonstrate real-world usage patterns and best practices.
 
-**Generated**: 2026-07-08  
+**Generated**: 2026-07-10  
 **Repository**: ShapeDiver/ViewerExamples  
 **Examples Analyzed**: 162  
 **Categories**: 16
@@ -12,7 +12,7 @@ This document analyzes 162 working examples from the ShapeDiver Viewer Examples 
 ### Basic setup
 Creating viewport and session for 3D visualization
 - **Usage**: Found in 157 examples
-- **Examples**: animations/translation, animations/translation_rotation, animations/translation_rotation_scale, AR/default, AR/hide_objects
+- **Examples**: AR/default, AR/hide_objects, AR/load_custom_scene, animations/translation, animations/translation_rotation
 
 ### Materials
 Creating and applying PBR materials to geometry
@@ -32,7 +32,7 @@ Listening to API events and user interactions
 ### Output callbacks
 Handling dynamic updates when model outputs change
 - **Usage**: Found in 25 examples
-- **Examples**: drawing_tools/geometry_restriction, html_anchors/attributes_with_anchor, html_anchors/size_change_with_anchors, html_anchors/UI_with_anchor, interactions/advanced/hover_and_select
+- **Examples**: drawing_tools/geometry_restriction, html_anchors/UI_with_anchor, html_anchors/attributes_with_anchor, html_anchors/size_change_with_anchors, interactions/advanced/hover_and_select
 
 ### Customization
 Updating parameters and regenerating models
@@ -72,13 +72,13 @@ createViewport({
 
 createSession({
     ticket:
-      "319f14f08c1e67a874fd843acecfd321049772deb0cdb5a0dbb39385592a156e83730e45c5e7af5eab52e15b1e36d44a092f71ada1331e1935b0f25d9448af34d0add0bd5abf8984325b97ee9e6106b25216446d15a86bb18b40114df89d2f5909b08e8c8b9eeb-7516be37cb2d968a0b3c545baf3ae51e",
-    modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
+      "38062998cb03bddc76861546b34a450bffc3efbfac6ff2d33f061bd11343930174b39192925364dfb71f8b944d5952f7ee6b970d56ab21d3e175a1314332e4250f77f2f2b4a5f068e52f336f1bb9dce57c58bc51db75edb668d5fb1692aa523a744ca32b86f670-9929a50d1d9e437754c61e5613e7a631",
+    modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com",
     id: "mySession"
   });
 ```
 
-**Used in**: translation
+**Used in**: default
 
 ### Updating Parameters and Customizing Model
 *Standard parameter modification workflow*
@@ -117,7 +117,21 @@ new MaterialStandardData({
 
 ## Example Categories Overview
 
+### AR
+The examples in this section show different use cases of how to use the Augmented Reality feature.
+
+Create an AR experience from the contents of the viewport. You can do this by either [triggering AR directly](https://viewer.shapediver.com/v3/latest/api/interfaces/IViewportApi.html#viewInAR) or [creating a QR-code](https://viewer.shapediver.com/v3/latest/api/interfaces/IViewportApi.html#createArSessionLink).
+**Examples**: 3  
+**Complexity**: 3 basic, 0 intermediate, 0 advanced
+
+- **default**: Either load the model in AR or create a QR-Code if not on a compatible device.
+- **hide_objects**: Hide objects that should not be shown in the AR scene.
+- **load_custom_scene**: Load a different scene in a hidden viewport and create a QR-Code for it.
+
 ### Animations
+The examples in this section show different use cases of how to use animations.
+
+A feature that can make your models much more lively is animations. In our viewer, animations can be defined by using [AnimationData](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationData.html). An [AnimationData](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationData.html) consists of one or multiple [AnimationTracks](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationTrack.html). The [AnimationTracks](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationTrack.html) define which object moves how. The [AnimationData](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationData.html) is a wrapper around multiple [AnimationTracks](https://viewer.shapediver.com/v3/latest/api/interfaces/IAnimationTrack.html) to execute them together. In this tutorial, we’ll show you how to do that, and what is possible.
 **Examples**: 5  
 **Complexity**: 1 basic, 4 intermediate, 0 advanced
 
@@ -127,15 +141,10 @@ new MaterialStandardData({
 - **translation_rotation**: Create a translation and rotation animation.
 - **translation_rotation_scale**: Create a translation, rotation and scale animation.
 
-### AR
-**Examples**: 3  
-**Complexity**: 3 basic, 0 intermediate, 0 advanced
-
-- **default**: Either load the model in AR or create a QR-Code if not on a compatible device.
-- **hide_objects**: Hide objects that should not be shown in the AR scene.
-- **load_custom_scene**: Load a different scene in a hidden viewport and create a QR-Code for it.
-
 ### Attribute_visualization
+The examples in this section show different use cases of how to use [attribute visualization](https://viewer.shapediver.com/v3/latest/api/features/attribute-visualization/index.html).
+
+With our Grasshopper Plugin and the invention of [sdTF](https://github.com/shapediver/sdTF) a lot more data can be added to your models. This data can potentially be anything at all, in this case, we’ll look at how we can visualize primitive data. This can be expanded by yourself to much more complex data though. Attributes are key-value pairs that can be specified at every step of the node tree. The number and type of attributes does not have to be consistent over the scene tree.
 **Examples**: 6  
 **Complexity**: 4 basic, 2 intermediate, 0 advanced
 
@@ -147,6 +156,10 @@ new MaterialStandardData({
 - **simple**: A simple example on how to start the attribute visualization.
 
 ### Drawing_tools
+The examples in this section show different use cases of how to use [drawing tools](https://viewer.shapediver.com/v3/latest/api/features/drawing-tools/index.html).
+
+The drawing tools can be used to create or edit point and line data. Points can be added, moved or removed.
+Restrictions can be used to restrict the point movement to either a grid, angular connections to neighboring lines or other geometry.
 **Examples**: 3  
 **Complexity**: 2 basic, 1 intermediate, 0 advanced
 
@@ -155,6 +168,9 @@ new MaterialStandardData({
 - **geometry_restriction**: Restrict the drawing to a mesh.
 
 ### General
+The examples in this section show general settings and properties that can be set.
+
+These settings and properties can be used in a variety of ways for console branding, error handling or events.
 **Examples**: 6  
 **Complexity**: 6 basic, 0 intermediate, 0 advanced
 
@@ -166,6 +182,9 @@ new MaterialStandardData({
 - **progress_events**: Display the progress of loading a model with the events provided.
 
 ### Gumball_transform
+The examples in this section show different use cases of how to use the [GumballTransform feature](https://viewer.shapediver.com/v3/latest/api/features/transformation-tools/index.html).
+
+The GumballTransform can be used to translate, rotate or scale objects in the scene.
 **Examples**: 2  
 **Complexity**: 1 basic, 1 intermediate, 0 advanced
 
@@ -173,15 +192,19 @@ new MaterialStandardData({
 - **simple**: Create a single GumballTransform for the session.
 
 ### Html_anchors
+The examples in this section show different use cases of how to use HTML anchors.
+
+Sometimes, you might want to enhance your scene with [text elements](https://viewer.shapediver.com/v3/latest/api/classes/HTMLElementAnchorTextData.html) to describe objects, [show images](https://viewer.shapediver.com/v3/latest/api/classes/HTMLElementAnchorImageData.html) next to them, or to connect them better with [custom HTML elements](https://viewer.shapediver.com/v3/latest/api/classes/HTMLElementAnchorCustomData.html), like an UI. Therefore, we implemented as specific data format that let’s you put anchors in the scene which can then be used to display HTML elements on the projected position on the canvas.
 **Examples**: 4  
 **Complexity**: 1 basic, 2 intermediate, 1 advanced
 
+- **UI_with_anchor**: Use an HTML Anchor to display the UI of a model.
 - **all_types**: All types of html anchors (text, image and custom) in one model.
 - **attributes_with_anchor**: Using anchors to display attribute data.
 - **size_change_with_anchors**: Use two anchors to change a specific parameter of the model.
-- **UI_with_anchor**: Use an HTML Anchor to display the UI of a model.
 
 ### Interactions
+Dragging is the most complex of the interactions. While for selecting and hovering, the object stays still, for dragging the object is moved and we can decide how it is doing that.
 **Examples**: 28  
 **Complexity**: 0 basic, 19 intermediate, 9 advanced
 
@@ -191,11 +214,14 @@ new MaterialStandardData({
 - **selection_by_naming**: Separate interactions in multiple viewports and sessions.
 - **selection_by_naming_advanced**: Separate interactions in multiple viewports and sessions.
 - **sphere_dragging**: Drag spheres that affect the shape of the model.
-- **dragging_plane**: Use a plane for dragging.
 - **drag_information**: Event description when dragging.
+- **drag_line_constraint**: Use a line constraint for dragging.
 - *...and 20 more*
 
 ### Materials
+The examples in this section show different use cases for materials. There are separate sub-sections for gem materials and specific material properties.
+
+The materials play the most important factor in the appearance of models, therefore it is sometimes needed to adjust them. With the [standard material](https://viewer.shapediver.com/v3/latest/api/classes/MaterialStandardData.html), there are already a lot of options available, but there are many other material options to chose from.
 **Examples**: 18  
 **Complexity**: 13 basic, 5 intermediate, 0 advanced
 
@@ -210,6 +236,9 @@ new MaterialStandardData({
 - *...and 10 more*
 
 ### Rectangle_transform
+The examples in this section show different use cases of how to use the [RectangleTransform feature](https://viewer.shapediver.com/v3/latest/api/features/transformation-tools/index.html).
+
+The RectangleTransform can be used to translate, rotate or scale objects in the scene using a 2D rectangular handle on a defined plane.
 **Examples**: 2  
 **Complexity**: 1 basic, 1 intermediate, 0 advanced
 
@@ -217,6 +246,9 @@ new MaterialStandardData({
 - **simple**: Create a single RectangleTransform for the session.
 
 ### Scene_tree_manipulation
+The examples in this section show different use cases of how to manipulate the [scene tree](https://viewer.shapediver.com/v3/latest/api/interfaces/ITree.html).
+
+This application has it's own [scene tree](https://viewer.shapediver.com/v3/latest/api/interfaces/ITree.html) in which sessions store their computed outputs as [nodes](https://viewer.shapediver.com/v3/latest/api/interfaces/ITreeNode.html), but you can also create, adjust and remove parts of the scene tree yourself.
 **Examples**: 5  
 **Complexity**: 0 basic, 5 intermediate, 0 advanced
 
@@ -227,6 +259,9 @@ new MaterialStandardData({
 - **traverse**: Traverse the children of a node or the data items of it.
 
 ### Session
+The examples in this section show different use cases of how to use [sessions](https://viewer.shapediver.com/v3/latest/api/interfaces/ISessionApi.html). There are separate sub-sections for [parameters](https://viewer.shapediver.com/v3/latest/api/interfaces/IParameterApi.html), [exports](https://viewer.shapediver.com/v3/latest/api/interfaces/IExportApi.html) and [outputs](https://viewer.shapediver.com/v3/latest/api/interfaces/IOutputApi.html).
+
+Your models running on ShapeDiver are hosted on one of our Geometry Backend systems. The access to triggering customizations and downloading computation results is controlled by [sessions](https://viewer.shapediver.com/v3/latest/api/interfaces/ISessionApi.html). In order to create a session from an instance of the viewer embedded in a website, you need to provide a ticket for embedding.
 **Examples**: 24  
 **Complexity**: 20 basic, 4 intermediate, 0 advanced
 
@@ -241,30 +276,39 @@ new MaterialStandardData({
 - *...and 16 more*
 
 ### Setup
+The examples in this section show different use cases on how to set up the viewer API.
+
+You can use the Viewer with with our npm package (recommended) or our CDN. Both variants have their advantages, so it's on you to choose.
 **Examples**: 6  
 **Complexity**: 5 basic, 1 intermediate, 0 advanced
 
 - **CDN**: Using the Viewer API via a CDN.
+- **NPM**: Using the Viewer API via NPM.
 - **first_application**: Creating a simple application with a slider and an export.
 - **multiple_sessions**: Creating multiple sessions in a single viewport.
 - **multiple_viewports**: Creating multiple viewports with different cameras in them.
 - **mutliple_sessions_and_multiple_viewports**: Creating multiple sessions in multiple viewports.
-- **NPM**: Using the Viewer API via NPM.
 
 ### Showcase
+The examples in this section show different advanced use cases to get inspired.
+
+In our showcase examples we present the combination of many features and create powerful applications with them.
 **Examples**: 8  
 **Complexity**: 2 basic, 4 intermediate, 2 advanced
 
+- **Lamborghini**: short explanation on the example
 - **curve_preview**: Preview the curve that is exported by GH with a three.js object.
 - **door_hover_animation**: This showcase demonstrates how to create a an animation with data from the ShapeDiver model and how to trigger the animation on hover.
 - **gltf**: This showcase demonstrates the loading and displaying of glTFs.
 - **kitchen_interaction**: This showcase demonstrates many of our interaction features.
-- **lamborghini**: short explanation on the example
 - **multiple_sessions**: This showcase demonstrates how multiple sessions can be used effectively.
 - **multiple_viewports**: This showcase demonstrates how multiple viewports can be used effectively.
 - **ribs_table_interaction**: This showcase demonstrates many of our interaction features.
 
 ### Three.js
+The examples in this section show different use cases where three.js is used directly.
+
+Our Viewer is using [three.js](https://threejs.org/), an awesome graphics library that uses WebGL to render the contents in 2D and 3D. If you don’t want to, you will never have to touch anything related to three.js, but that might not be the case for all. Therefore, here are some examples on how to interact with three.js in combination with the Viewer API.
 **Examples**: 4  
 **Complexity**: 1 basic, 3 intermediate, 0 advanced
 
@@ -274,6 +318,9 @@ new MaterialStandardData({
 - **three.js_data**: Add custom three.js data to the scene tree.
 
 ### Viewport
+The examples in this section show different use cases of how to use [viewports](https://viewer.shapediver.com/v3/latest/api/interfaces/IViewportApi.html). There are separate sub-sections for cameras, lights and post-processing.
+
+The Viewport is responsible for rendering and rendering related settings. For example, camera and light management happens here. Additionally, a Viewport has many options, as rendering options can be enabled or disabled (shadows, ambient occlusion, etc.) and scene properties can be adjusted (groundplane, grid, etc.). A Viewport can exist completely without a Session, as a Session can exist without a Viewport.
 **Examples**: 38  
 **Complexity**: 32 basic, 5 intermediate, 1 advanced
 
@@ -282,8 +329,8 @@ new MaterialStandardData({
 - **movement**: Various ways of how the camera can be moved programmatically.
 - **restrictions**: Restrict the position, target, rotation and zooming of the camera.
 - **turntable_controls**: Controls that allow to turn the object like it is on a table.
-- **zooming_with_buttons**: Zooming with a plus and a minus button.
 - **zoom_to_object**: Variations of how to zoom to an object.
+- **zooming_with_buttons**: Zooming with a plus and a minus button.
 - **contact_shadows**: Try the new default settings values for an example model.
 - *...and 30 more*
 
@@ -319,23 +366,22 @@ import { createUi } from "@shapediver/viewer.shared.demo-helper";
 **Viewport Creation**: Standard viewport initialization with canvas
 ```typescript
 const viewport = await createViewport({
-  id: "myViewport",
-  canvas: <HTMLCanvasElement>document.getElementById("canvas"),
-  visibility: SDV.VISIBILITY_MODE.INSTANT
+  canvas: document.getElementById("canvas") as HTMLCanvasElement,
+  id: "myViewport"
 });
 ```
-*Found in 157 examples: hierarchical, hierarchical_advanced, translation and 154 more*
+*Found in 157 examples: default, hide_objects, load_custom_scene and 154 more*
 
 **Session Creation**: Standard session initialization with ticket
 ```typescript
 const session = await createSession({
   ticket:
-      "319f14f08c1e67a874fd843acecfd321049772deb0cdb5a0dbb39385592a156e83730e45c5e7af5eab52e15b1e36d44a092f71ada1331e1935b0f25d9448af34d0add0bd5abf8984325b97ee9e6106b25216446d15a86bb18b40114df89d2f5909b08e8c8b9eeb-7516be37cb2d968a0b3c545baf3ae51e",
-  modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com",
+      "38062998cb03bddc76861546b34a450bffc3efbfac6ff2d33f061bd11343930174b39192925364dfb71f8b944d5952f7ee6b970d56ab21d3e175a1314332e4250f77f2f2b4a5f068e52f336f1bb9dce57c58bc51db75edb668d5fb1692aa523a744ca32b86f670-9929a50d1d9e437754c61e5613e7a631",
+  modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com",
   id: "mySession"
 });
 ```
-*Found in 153 examples: translation, translation_rotation, translation_rotation_scale and 150 more*
+*Found in 153 examples: default, hide_objects, load_custom_scene and 150 more*
 
 ## API Usage Statistics
 
@@ -350,7 +396,7 @@ const session = await createSession({
 - **createLightScene**: 3 examples
 
 ### Package Dependencies
-- **@shapediver/viewer**: 221 examples (AnimationData, createSession, createViewport, IAnimationTrack, FLAG_TYPE)
+- **@shapediver/viewer**: 221 examples (createViewport, createSession, FLAG_TYPE, AnimationData, IAnimationTrack)
 - **@shapediver/viewer.features.interaction**: 38 examples (InteractionData, InteractionEngine, ISelectEvent, SelectManager, HoverManager)
 - **@shapediver/viewer.features.attribute-visualization**: 4 examples (AttributeVisualizationEngine, IStringAttribute, ATTRIBUTE_VISUALIZATION)
 - **@shapediver/viewer.features.transformation-tools**: 4 examples (GumballTransform, EventResponseMapping, RectangleTransform, )
@@ -386,4 +432,4 @@ examples/
 
 ---
 
-*This analysis was automatically generated by parsing 162 TypeScript example files on 2026-07-08.*
+*This analysis was automatically generated by parsing 162 TypeScript example files on 2026-07-10.*
