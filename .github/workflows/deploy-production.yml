@@ -71,25 +71,31 @@ jobs:
             - name: Update viewer dependencies
               if: steps.version.outputs.version != ''
               shell: bash
+              env:
+                  VERSION: ${{ steps.version.outputs.version }}
               run: |
-                  VERSION="${{ steps.version.outputs.version }}"
                   echo "Updating @shapediver/viewer packages to ${VERSION}..."
 
-                  # Update all @shapediver/viewer packages in package.json
-                  DEPS=$(node -e "
-                    const pkg = require('./package.json');
-                    const deps = {...pkg.dependencies};
-                    for (const [name, ver] of Object.entries(deps)) {
-                      if (name.startsWith('@shapediver/viewer')) {
-                        console.log(name);
-                      }
-                    }
-                  ")
+                  node <<'NODE'
+                  const fs = require("fs");
+                  const packagePath = "./package.json";
+                  const version = process.env.VERSION;
+                  const pkg = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+                  const deps = pkg.dependencies || {};
+                  const viewerDeps = Object.keys(deps).filter((name) => name.startsWith("@shapediver/viewer"));
 
-                  for pkg in $DEPS; do
-                    echo "  Setting ${pkg} -> ${VERSION}"
-                    npm pkg set "dependencies.${pkg}"="${VERSION}"
-                  done
+                  if (viewerDeps.length === 0) {
+                    console.log("No @shapediver/viewer dependencies found.");
+                  }
+
+                  for (const name of viewerDeps) {
+                    console.log(`  Setting ${name} -> ${version}`);
+                    deps[name] = version;
+                  }
+
+                  pkg.dependencies = deps;
+                  fs.writeFileSync(packagePath, `${JSON.stringify(pkg, null, 2)}\n`);
+                  NODE
 
                   echo "Updated package.json dependencies."
 
