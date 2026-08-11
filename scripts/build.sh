@@ -23,6 +23,6 @@ if [ "$DEPLOY_ENV" = "prod" ]; then
 else
   PUBLIC_URL=${PUBLIC_URL:-/v3/examples-staging/}
 fi
-MSYS_NO_PATHCONV=1 parcel build $ENTRIES index.html --no-scope-hoist --dist-dir dist --public-url $PUBLIC_URL
+MSYS_NO_PATHCONV=1 parcel build $ENTRIES index.html --no-cache --no-scope-hoist --dist-dir dist --public-url $PUBLIC_URL
 
 npm run after-build

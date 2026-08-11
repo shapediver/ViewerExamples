@@ -53,7 +53,7 @@ import { vec3, mat4 } from "gl-matrix";
   // create the Object3D structure and add it to the scene
   const parentObject = new THREE.Object3D();
   control.attach(transformationPlaceholder);
-  parentObject.add(control);
+  parentObject.add(control.getHelper());
   parentObject.add(transformationPlaceholder);
   viewport.threeJsCoreObjects.scene.add(parentObject);
 

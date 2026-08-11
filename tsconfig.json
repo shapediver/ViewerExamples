@@ -12,6 +12,8 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "moduleResolution": "node",
+        "types": ["node"],
+        "ignoreDeprecations": "6.0",
         "skipLibCheck": true
     },
     "exclude": ["node_modules", "dist"]
